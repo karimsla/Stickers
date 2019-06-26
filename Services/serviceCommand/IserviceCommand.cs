@@ -10,7 +10,7 @@ namespace Services.serviceCommand
 {
     public interface IserviceCommand:IservicePattern<Command>
     {
-
+        void validateCommande(Command cmd);
 
     }
 }

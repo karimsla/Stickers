@@ -10,8 +10,6 @@ namespace Services.serviceAdmin
 {
     public class serviceAdmin : servicePattern<Admin>,IserviceAdmin
 
-
-
     {
         static IDatabaseFactory dbf = new DatabaseFactory();
         static IUnitOfWork uow = new UnitOfWork(dbf);
@@ -20,5 +18,9 @@ namespace Services.serviceAdmin
 
         }
 
+        public bool authAdmin(string username, string password)
+        {
+            return this.Get(x => x.username == username || x.password == password) != null;
+        }
     }
 }

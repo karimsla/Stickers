@@ -19,5 +19,14 @@ namespace Services.serviceCommand
 
             }
 
+        public void validateCommande(Command cmd)
+        {
+
+            Command _cmd = this.GetById(cmd.idcmd);
+            
+
+
+            throw new System.NotImplementedException();
         }
+    }
 }

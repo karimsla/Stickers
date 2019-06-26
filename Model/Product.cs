@@ -15,6 +15,7 @@ namespace Model
         public int qteprod { get; set; }
         public string description { get; set; }
         public string imgprod { get; set; }
+        public float price { get; set; }
 
         public virtual ICollection<Product> prods { get; set; }
     }
