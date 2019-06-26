@@ -13,7 +13,7 @@ namespace Stickers.Controllers
         {
             return View();
         }
-
+           
         // GET: DeleteMe/Details/5
         public ActionResult Details(int id)
         {
