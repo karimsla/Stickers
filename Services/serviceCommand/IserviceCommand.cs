@@ -6,11 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.serviceCommand
+namespace Services
 {
     public interface IserviceCommand:IservicePattern<Command>
     {
         void validateCommande(Command cmd);
+        void add_commande(Command cmd);
 
     }
 }

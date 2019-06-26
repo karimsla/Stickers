@@ -22,5 +22,30 @@ namespace Services.serviceAdmin
         {
             return this.Get(x => x.username == username || x.password == password) != null;
         }
+
+        public void modifyAccount(Admin _admin)
+        {
+            Admin ad = this.GetById(_admin.idAdmin);
+            if(_admin.username!="" && _admin.username != ad.username)
+            {
+                ad.username = _admin.username;
+            }
+            if(_admin.email != "" && _admin.email != ad.email)
+            {
+
+                ad.email = _admin.email;
+            }
+            if (_admin.password != "" && _admin.password != ad.password)
+            {
+
+                ad.password = _admin.password;
+            }
+            this.Update(ad);
+            this.Commit();
+
+
+        }
+
+
     }
 }
