@@ -303,6 +303,8 @@
     <Content Include="ebusiness\img\about\2.jpg" />
     <Content Include="ebusiness\img\apple-touch-icon.png" />
     <Content Include="ebusiness\img\background\bg1.jpg" />
+    <Content Include="ebusiness\img\background\nav-bar-logo-jpeg.jpg" />
+    <Content Include="ebusiness\img\background\nav-bar-logo-png.png" />
     <Content Include="ebusiness\img\background\slider1.jpg" />
     <Content Include="ebusiness\img\blog\1.jpg" />
     <Content Include="ebusiness\img\blog\2.jpg" />
@@ -311,6 +313,8 @@
     <Content Include="ebusiness\img\blog\5.jpg" />
     <Content Include="ebusiness\img\blog\6.jpg" />
     <Content Include="ebusiness\img\blog\b02.jpg" />
+    <Content Include="ebusiness\img\Favicon-jpeg-.jpg" />
+    <Content Include="ebusiness\img\favicon-png.png" />
     <Content Include="ebusiness\img\favicon.png" />
     <Content Include="ebusiness\img\portfolio\1.jpg" />
     <Content Include="ebusiness\img\portfolio\2.jpg" />
