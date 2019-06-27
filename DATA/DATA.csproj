@@ -96,6 +96,10 @@
     <Compile Include="Migrations\201906261648326_scar2.Designer.cs">
       <DependentUpon>201906261648326_scar2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906270035027_phamas.cs" />
+    <Compile Include="Migrations\201906270035027_phamas.Designer.cs">
+      <DependentUpon>201906270035027_phamas.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -121,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906261648326_scar2.resx">
       <DependentUpon>201906261648326_scar2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906270035027_phamas.resx">
+      <DependentUpon>201906270035027_phamas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

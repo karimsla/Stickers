@@ -4,7 +4,9 @@ using Infrastructure;
 using Model;
 using MyFinance.Data.Infrastructure;
 using Service;
-
+using System;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Services.serviceAdmin
 {
@@ -20,7 +22,12 @@ namespace Services.serviceAdmin
 
         public bool authAdmin(string username, string password)
         {
-            return this.Get(x => x.username == username || x.password == password) != null;
+            SHA256 hash = new SHA256CryptoServiceProvider();
+            Byte[] originalBytes = ASCIIEncoding.Default.GetBytes(password);
+            Byte[] encodedBytes = hash.ComputeHash(originalBytes);
+            password = BitConverter.ToString(encodedBytes);
+            return this.Get(x => x.username == username && x.password == password) != null;
+
         }
 
         public void modifyAccount(Admin _admin)

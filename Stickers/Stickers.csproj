@@ -648,6 +648,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\templateback.cshtml" />
+    <Content Include="Views\Admin\login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
