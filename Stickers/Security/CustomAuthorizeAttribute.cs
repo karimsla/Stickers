@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace EventWeb.Security
+namespace Stickers.Security
 {
     [AttributeUsage(AttributeTargets.Class| AttributeTargets.Method)]
     public class CustomAuthorizeAttribute : AuthorizeAttribute
@@ -61,9 +61,13 @@ namespace EventWeb.Security
             //        ViewName = "~/Home/Unauthorized"
             //    };
             //}
-           
-          
-            filterContext.Result = new HttpUnauthorizedResult();
+
+            if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
+            {
+                filterContext.Result = new RedirectToRouteResult(new
+                 RouteValueDictionary(new { controller = "Admin", action = "login" }));
+            }
+            // filterContext.Result = new HttpUnauthorizedResult();
         }
 
 

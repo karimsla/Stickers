@@ -1,18 +1,63 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Model;
+using Services.serviceAdmin;
+using Stickers.Security;
+using System;
+
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Stickers.Controllers
 {
+   
     public class AdminController : Controller
     {
+
+
+        public ActionResult login()
+        {
+            FormsAuthentication.SignOut();
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult login(Admin ad, string ReturnUrl)
+        {
+            IserviceAdmin spa = new serviceAdmin();
+            if (spa.authAdmin(ad.username, ad.password))//check serviceAdmin
+            {
+
+                FormsAuthentication.SetAuthCookie(ad.username, true);//store user mail in cookies 
+           
+
+                return RedirectToAction("index");
+            }
+
+
+
+            return View();
+        }
+
+
+        [Authorize]
+        public ActionResult logout()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+
+
+
+            return RedirectToAction("login");
+        }
+
+
         // GET: Admin
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult Index()
         {
             return View();
         }
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult Index2()
         {
             return View();

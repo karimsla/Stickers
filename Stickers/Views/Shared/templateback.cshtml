@@ -288,7 +288,7 @@
                                             <img src="~/backoffice/images/icon/avatar-01.jpg" alt="John Doe" />
                                         </div>
                                         <div class="content">
-                                            <a class="js-acc-btn" href="#">john doe</a>
+                                            <a class="js-acc-btn" href="#">@User.Identity.Name</a>
                                         </div>
                                         <div class="account-dropdown js-dropdown">
                                             <div class="info clearfix">
@@ -322,7 +322,7 @@
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
-                                                <a href="#">
+                                                <a href="@Url.Action("logout","Admin")">
                                                     <i class="zmdi zmdi-power"></i>Logout
                                                 </a>
                                             </div>
