@@ -166,6 +166,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\DeleteMeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\test2Controller.cs" />
     <Compile Include="Controllers\testController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -655,6 +656,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\DeleteMe\" />
+    <Folder Include="Views\test2\" />
     <Folder Include="Views\test\" />
   </ItemGroup>
   <ItemGroup>
