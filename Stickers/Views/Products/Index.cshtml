@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Model.Product>
+
+@{
+    Layout = "~/Views/Shared/TemplateProducts.cshtml";
+}
+
+
+
+
+<br /><br />
+<br />
+<br />
+<div class="awesome-project-content">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 col-sm-3 col-xs-12 ">
+            <div class="single-awesome-project">
+                <div class="awesome-img">
+                    <a href="#"><img src="~/ebusiness/img/portfolio/1.jpg" alt="" /></a>
+                    <div class="add-actions text-center">
+                        <div class="project-dec">
+                            <h4>@item.nameprod</h4>
+                            <span>@item.price DT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
