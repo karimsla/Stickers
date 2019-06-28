@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Model.Product>
+
+@{
+    ViewBag.Title = "IndexProducts";
+    Layout = "~/Views/Shared/templateback.cshtml";
+}
+
+<div class="section__content section__content--p30">
+    <div class="container-fluid">
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- DATA TABLE -->
+                <h3 class="title-5 m-b-35">Products</h3>
+
+                <div class="table-responsive table-responsive-data2">
+                    <table class="table table-data2">
+                        <thead>
+                            <tr>
+
+                                <th>Product Name</th>
+                                <th>Product Price</th>
+                                <th>Description</th>
+                                <th>Picture</th>
+
+                                <th>Manage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr class="tr-shadow">
+
+                                <td>
+                                    <span class="block-email">@item.nameprod</span>
+                                </td>
+                                <td>
+                                    <span class="block-email">@item.price</span>
+                                </td>
+                                <td class="desc">@item.description</td>
+                                <td>
+                                    <img class="zoom" style="width:35%;  height:auto;   " src=@item.imgprod />
+                                </td>
+
+                                <style>
+                                   
+
+                                        .zoom:hover {
+                                            transform: scale(2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+                                        }
+                                </style>
+
+
+
+                                <td>
+                                    <div class="table-data-feature">
+                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send">
+                                            <i class="zmdi zmdi-mail-send"></i>
+                                        </button>
+                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                            <i class="zmdi zmdi-edit"></i>
+                                        </button>
+                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                            <i class="zmdi zmdi-delete"></i>
+                                        </button>
+                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="More">
+                                            <i class="zmdi zmdi-more"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                                <tr class="spacer"></tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END DATA TABLE -->
+            </div>
+        </div>
+
+
+    </div>
+</div>

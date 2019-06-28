@@ -1,4 +1,5 @@
 ﻿using Model;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace Stickers.Controllers
 {
     public class ProductsController : Controller
     {
+
+        serviceProduct sp = new serviceProduct();
+
         // GET: Products
         public ActionResult Index()
         {
@@ -24,6 +28,19 @@ namespace Stickers.Controllers
 
             return View(lp);
         }
+
+
+
+        // GET: Products
+        public ActionResult IndexProducts()
+        {
+
+
+            var products = sp.GetMany();
+
+            return View(products);
+        }
+
 
         // GET: Products/Details/5
         public ActionResult Details(int id)

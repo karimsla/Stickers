@@ -54,9 +54,16 @@
         <header class="header-mobile d-block d-lg-none">
             <div class="header-mobile__bar">
                 <div class="container-fluid">
+
+
+
+
+
                     <div class="header-mobile-inner">
-                        <a class="logo" href="index.html">
-                            <img src="~/backoffice/images/icon/logo.png" alt="CoolAdmin" />
+                        <a class="navbar-brand page-scroll sticky-logo" href="/Home">
+                            <h1><span style="color:gold;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">RI9</span>Tounsi</h1>
+                            <!-- Uncomment below if you prefer to use an image logo -->
+                            @*<img src="~/ebusiness/img/background/nav-bar-logo-jpeg.jpg" style="width:150px"  class="pull-left" " title="" />*@
                         </a>
                         <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -108,8 +115,10 @@
         <!-- MENU SIDEBAR-->
         <aside class="menu-sidebar d-none d-lg-block">
             <div class="logo">
-                <a href="#">
-                    <img src="~/backoffice/images/icon/logo.png" alt="Cool Admin" />
+                <a class="navbar-brand page-scroll sticky-logo" href="/Home">
+                    <h1><span style="color:gold;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">RI9</span>Tounsi</h1>
+                    <!-- Uncomment below if you prefer to use an image logo -->
+                    @*<img src="~/ebusiness/img/background/nav-bar-logo-jpeg.jpg" style="width:150px"  class="pull-left" " title="" />*@
                 </a>
             </div>
             <div class="menu-sidebar__content js-scrollbar1">
@@ -119,20 +128,7 @@
                             <a class="js-arrow" href="#">
                                 <i class="fas fa-tachometer-alt"></i>Dashboard
                             </a>
-                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                <li>
-                                    <a href="index.html">Dashboard 1</a>
-                                </li>
-                                <li>
-                                    <a href="index2.html">Dashboard 2</a>
-                                </li>
-                                <li>
-                                    <a href="index3.html">Dashboard 3</a>
-                                </li>
-                                <li>
-                                    <a href="index4.html">Dashboard 4</a>
-                                </li>
-                            </ul>
+                            
                         </li>
                         <li>
                             <a href="chart.html">
@@ -140,7 +136,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="table.html">
+                            <a href="@Url.Action("IndexProducts", "Products")">
                                 <i class="fas fa-table"></i>Products
                             </a>
                         </li>
