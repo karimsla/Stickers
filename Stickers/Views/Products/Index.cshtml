@@ -23,25 +23,26 @@
 <div class="col-md-12">
     <br />
     <div class="awesome-project-content">
-      @{ var x = 0;}
+    
     @foreach (var item in Model)
     {
-        x++;
-        string ch = x + ".jpg";
+       
             <div class="col-md-4 col-sm-4 col-xs-12 ">
-                <div class="single-awesome-project">
-                    <div class="awesome-img">
-                        <a href="#">
-                        <img src="~/ebusiness/img/portfolio/@ch" alt="" /></a>
-                        <div class="add-actions text-center">
-                            <div class="project-dec">
-                                <h4>@item.nameprod</h4>
-                                <span>@item.price DT</span>
+                <a href="/Products/Details/@item.idprod">
+                    <div class="single-awesome-project">
+                        <div class="awesome-img">
+
+                            <img src="~/ebusiness/img/portfolio/@item.imgprod" alt="" />
+                            <div class="add-actions text-center">
+                                <div class="project-dec">
+                                    <h4>@item.nameprod</h4>
+                                    <span>@item.price DT</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </a>
+                    </div>
 }
     
     </div>

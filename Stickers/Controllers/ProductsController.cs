@@ -16,18 +16,13 @@ namespace Stickers.Controllers
         // GET: Products
         public ActionResult Index()
         {
-
+            IserviceProduct ip = new serviceProduct();
             List<Product> lp = new List<Product>();
-            lp.Add(new Product() { nameprod = "Sticker Got", price = 30, idprod = 1 });
-            lp.Add(new Product() { nameprod = "Sticker Vikings", price = 40, idprod = 1 });
-            lp.Add(new Product() { nameprod = "Sticker Friends", price = 20, idprod = 1 });
-            lp.Add(new Product() { nameprod = "Sticker Dark", price = 20, idprod = 1 });
-            lp.Add(new Product() { nameprod = "Sticker TEST", price = 150, idprod = 1 });
-            lp.Add(new Product() { nameprod = "Sticker Flash", price = 70, idprod = 1 });
-
+            lp = ip.GetMany().ToList();
 
             return View(lp);
         }
+
 
 
 
@@ -45,7 +40,9 @@ namespace Stickers.Controllers
         // GET: Products/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            IserviceProduct ip = new serviceProduct();
+            Product p = ip.GetById(id);
+            return View(p);
         }
 
         // GET: Products/Create

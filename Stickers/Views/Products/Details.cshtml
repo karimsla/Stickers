@@ -1,0 +1,85 @@
+﻿@model Model.Product
+
+@{
+    Layout = "~/Views/Shared/TemplateProducts.cshtml";
+}
+
+<br />
+<br />
+
+<div class="form-row col-md-12" style="margin-top:50px;margin-bottom:50px">
+    <div class="form-group col-md-6">
+
+        <img src="~/ebusiness/img/portfolio/@Model.imgprod" style="width:660px;height:500px" />
+
+    </div>
+    <br /><br />
+    <div class="col-md-6 col-sm-6 col-xs-12" >
+        <div class="well-middle">
+            <center>
+                <div class="single-well">
+                    <h3 style="color:goldenrod"><b>@Model.nameprod</b></h3>
+
+                </div>
+            </center>
+            <br />
+            <div class="single-well">
+                <h4 class="sec-head">Description</h4>
+                <p>
+                    @Model.description
+                </p>
+
+            </div>
+
+            <div class="single-well">
+                <h4 class="sec-head">Price</h4>
+                <p>
+                    @Model.price Dt
+                </p>
+
+            </div>
+
+            <div class="single-well">
+                @if (Model.qteprod > 0)
+                {<h4 class="sec-head" style="color:forestgreen">Product In Stock</h4>
+                    <p>
+                        @Model.qteprod
+                    </p>
+                }
+                else
+                {<h4 class="sec-head" style="color:red">Product Unavailable</h4>
+
+
+                }
+            </div>
+            <br />
+            <div class="floatright">
+                <button class="but">Buy Product</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+
+    .but {
+        background-color: white;
+        color: black;
+        border: 2px solid goldenrod;
+        padding: 5px 15px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+    }
+
+        .but:hover {
+            background-color: goldenrod; /* Green */
+            color: white;
+            border-radius: 10px 10px 10px 10px;
+        }
+</style>

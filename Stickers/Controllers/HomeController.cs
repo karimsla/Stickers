@@ -24,13 +24,10 @@ namespace Stickers.Controllers
 
         public PartialViewResult Products()
         {
+            IserviceProduct ip = new serviceProduct();
+           
             List<Product> lp = new List<Product>();
-            lp.Add(new Product() { nameprod = "Sticker Got", price = 30, idprod = 1 });
-            lp.Add(new Product() { nameprod = "Sticker Vikings", price = 40, idprod = 1 });
-            lp.Add(new Product() { nameprod = "Sticker Friends", price = 20, idprod = 1 });
-            lp.Add(new Product() { nameprod = "Sticker Dark", price = 20, idprod = 1 });
-            lp.Add(new Product() { nameprod = "Sticker TEST", price = 150, idprod = 1 });
-            lp.Add(new Product() { nameprod = "Sticker Flash", price = 70, idprod = 1 });
+            lp = ip.GetMany().Reverse().Take(6).ToList();
 
             ViewData["list"] = lp;
             return PartialView();

@@ -510,6 +510,7 @@
     <Content Include="ebusiness\img\portfolio\5.jpg" />
     <Content Include="ebusiness\img\portfolio\6.jpg" />
     <Content Include="ebusiness\img\preloader.gif" />
+    <Content Include="ebusiness\img\slider\slider-1-jpeg.jpg" />
     <Content Include="ebusiness\img\slider\slider1 - Copy.jpg" />
     <Content Include="ebusiness\img\slider\slider1.jpg" />
     <Content Include="ebusiness\img\slider\slider2.jpg" />
@@ -851,6 +852,7 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Shared\TemplateProducts.cshtml" />
     <Content Include="Views\Products\IndexProducts.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
