@@ -35,10 +35,35 @@ namespace Stickers.Controllers
         public ActionResult IndexProducts()
         {
 
-
+            
             var products = sp.GetMany();
 
             return View(products);
+        }
+
+
+        // POST: Service/Create
+        [HttpPost]
+        public ActionResult Index2(int reunion , int txtQt)
+        {
+            
+
+
+            Product s = new Product();
+            
+            s = sp.GetById(reunion);
+            s.qteprod = s.qteprod + txtQt;
+           
+            sp.Update(s);
+            sp.Commit();
+
+         return   RedirectToAction("IndexProducts");
+        }
+        [HttpPost]
+        public ActionResult IndexProducts(String SearchString)
+        {
+            var Products = sp.GetMany(p => p.nameprod.Contains(SearchString));
+            return View(Products);
         }
 
 

@@ -1,16 +1,22 @@
 ﻿using Model;
+using Services;
 using Services.serviceAdmin;
 using Stickers.Security;
 using System;
-
+using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
+
+using System.Linq;
+using System.Web;
 
 namespace Stickers.Controllers
 {
    
     public class AdminController : Controller
     {
+        serviceProduct sp = new serviceProduct();
+        serviceCommand sc = new serviceCommand();
 
 
         public ActionResult login()
@@ -55,7 +61,26 @@ namespace Stickers.Controllers
         [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult Index()
         {
+
+            //products number
+            List<Product> ls = sp.GetMany().ToList();
+            ViewBag.pr = ls.Count;
+
+            //command this week
+            DateTime d = DateTime.Today;
+            DateTime d1 = DateTime.Today.AddDays(-7);
+            List<Command> lc = sc.GetMany(a=>a.datecmd>=d1&&a.datecmd<=d).ToList();
+            ViewBag.cmdweek = lc.Count;
+
+
+            //total earnings
+            List<Command> xc = sc.GetMany(a => a.isComfirmed == true).ToList();
+            float v = xc.Sum(w => w.product.price);
+            ViewBag.earnings = v;
+
+
             return View();
+
         }
         [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult Index2()

@@ -5,9 +5,67 @@
     Layout = "~/Views/Shared/templateback.cshtml";
 }
 
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="exampleModalLabel"> would you like to add products</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+            <div class="modal-body">
+                <br />
+                @using (Html.BeginForm("Index2","Products"))
+                {@Html.AntiForgeryToken()
+                <input class="form-control" name="txtQt" placeholder="Quantity?" id="txtQt" />
+                <input type="hidden" id="idReunion" name="reunion" />
+                <button type="submit" class="btn btn-primary" id="btnPost" >Update</button>
+
+
+                }
+            </div>
+                
+            <div class="modal-footer">
+               
+           
+            </div>
+        
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
 <div class="section__content section__content--p30">
     <div class="container-fluid">
 
+
+        @using (Html.BeginForm())
+        {
+            
+
+
+            <div class="row form-group">
+                 <div class="col col-md-6">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button  type="submit" class="btn btn-primary">
+                                <i class="fa fa-search"></i> Search
+                            </button>
+                        </div>
+                        @Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "Search by product name" })
+
+                    </div>
+                </div>
+                </div>
+
+
+                 
+                
+        }
 
         <div class="row">
             <div class="col-md-12">
@@ -23,6 +81,8 @@
                                 <th>Product Price</th>
                                 <th>Description</th>
                                 <th>Picture</th>
+                                <th>Availability</th>
+                                <th>Quantity</th>
 
                                 <th>Manage</th>
                             </tr>
@@ -30,47 +90,76 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr class="tr-shadow">
+                                <tr class="tr-shadow">
 
-                                <td>
-                                    <span class="block-email">@item.nameprod</span>
-                                </td>
-                                <td>
-                                    <span class="block-email">@item.price</span>
-                                </td>
-                                <td class="desc">@item.description</td>
-                                <td>
-                                    <img class="zoom" style="width:35%;  height:auto;   " src=@item.imgprod />
-                                </td>
+                                    <td>
+                                        <span class="block-email">@item.nameprod</span>
+                                    </td>
+                                    <td>
+                                        <span class="block-email">@item.price</span>
+                                    </td>
+                                    <td class="desc">@item.description</td>
+                                    <td>
+                                        <img class="zoom" style="width:50%;  height:auto;   " src=@item.imgprod />
+                                    </td>
 
-                                <style>
-                                   
+                                    <style>
+
 
                                         .zoom:hover {
                                             transform: scale(2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
                                         }
-                                </style>
+                                    </style>
+
+                                    @if (item.qteprod > 0)
+                                    {
+                                        <td>
+
+                                            <button type="submit" class="open btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal" data-id="@item.idprod">
+                                                <i class="fa fa-dot-circle-o"></i> Available
+                                            </button>
 
 
+                                        </td>
 
-                                <td>
-                                    <div class="table-data-feature">
-                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send">
-                                            <i class="zmdi zmdi-mail-send"></i>
-                                        </button>
-                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                            <i class="zmdi zmdi-edit"></i>
-                                        </button>
-                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
-                                            <i class="zmdi zmdi-delete"></i>
-                                        </button>
-                                        <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="More">
-                                            <i class="zmdi zmdi-more"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <button type="submit" class="open btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal" data-id="@item.idprod">
+                                                <i class="fa fa-dot-circle-o"></i> Unavailable
+                                            </button>
+                                        </td>
+                                    }
+
+                                    @if (item.qteprod > 0)
+                                    {
+                                        <td class="desc">@item.qteprod</td>}
+                                    else
+                                    {
+                                        <td class="denied">--</td>}
+
+                                    <td>
+                                        <div class="table-data-feature">
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send">
+                                                <i class="zmdi zmdi-mail-send"></i>
+                                            </button>
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </button>
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete">
+                                                <i class="zmdi zmdi-delete"></i>
+                                            </button>
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="More">
+                                                <i class="zmdi zmdi-more"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
                                 <tr class="spacer"></tr>
+                                <tr class="spacer"></tr>
+
+
                             }
                         </tbody>
                     </table>
@@ -78,6 +167,34 @@
                 <!-- END DATA TABLE -->
             </div>
         </div>
+        <script type="text/javascript">
+            $(document).on("click", ".open", function () {
+                var eventId = $(this).data('id');
+                $('#idReunion').val(eventId);
+
+
+            });
+
+
+            function PostData() {
+                var Product = new Object();
+                Product.qteprod = $('#txtQt').val();
+                var eventId = $('#idReunion').val();
+                Product.idprod = eventId;
+                $.ajax({
+                    type: 'POST',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    url: "/Products/IndexProducts",
+                    data: JSON.stringify(Product),
+                    success: function (data) {
+
+                    },
+                    error: function (a, jqXHR, exception) {
+                    }
+                });
+            }
+        </script>
 
 
     </div>
