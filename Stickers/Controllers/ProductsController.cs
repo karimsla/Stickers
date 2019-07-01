@@ -30,10 +30,10 @@ namespace Stickers.Controllers
 
             string ch = search;//valeur à chercher
             string ch1 = type;//type de trie
-            List<Product> lp = ip.search_kw(search);
+            List<Product> lp = ip.search_kw(search).Where(a => a.qteprod > 0).ToList() ;
             if (type.Equals("desc"))
                 lp.Reverse();
-
+            
             return View(lp);
         }
 
