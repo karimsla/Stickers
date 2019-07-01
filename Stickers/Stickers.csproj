@@ -215,6 +215,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CommandController.cs" />
     <Compile Include="Controllers\DeleteMeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -908,7 +909,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\stickerspic\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Command\" />
     <Folder Include="Views\DeleteMe\" />
   </ItemGroup>
   <ItemGroup>

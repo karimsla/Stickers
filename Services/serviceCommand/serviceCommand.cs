@@ -5,6 +5,8 @@ using Model;
 using MyFinance.Data.Infrastructure;
 using Service;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Services
 {
@@ -25,6 +27,11 @@ namespace Services
             cmd.isComfirmed = false;
             this.Add(cmd);
             this.Commit();
+        }
+
+        public List<Command> ListCommand()
+        {
+            return this.GetAll().ToList();
         }
 
         public void validateCommande(Command cmd)

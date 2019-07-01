@@ -63,8 +63,8 @@ namespace Stickers.Controllers
         {
 
             //products number
-            List<Product> ls = sp.GetMany().ToList();
-            ViewBag.pr = ls.Count;
+            //List<Product> ls = sp.GetMany().ToList();
+            ViewBag.pr = sp.listprodadmin().Count;
 
             //command this week
             DateTime d = DateTime.Today;
