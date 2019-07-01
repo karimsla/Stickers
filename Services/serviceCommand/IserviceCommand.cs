@@ -12,6 +12,6 @@ namespace Services
     {
         void validateCommande(Command cmd);
         void add_commande(Command cmd);
-
+        List<Command> ListCommand();
     }
 }

@@ -2,6 +2,7 @@
 using Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,7 +19,7 @@ namespace Stickers.Controllers
         {
             IserviceProduct ip = new serviceProduct();
             List<Product> lp = new List<Product>();
-            lp = ip.GetMany().ToList();
+            lp = ip.listprod();
 
             return View(lp);
         }
@@ -50,14 +51,14 @@ namespace Stickers.Controllers
 
         // POST: Service/Create
         [HttpPost]
-        public ActionResult Index2(int reunion , int txtQt)
+        public ActionResult Index2(int id , int txtQt)
         {
             
 
 
             Product s = new Product();
             
-            s = sp.GetById(reunion);
+            s = sp.GetById(id);
             s.qteprod = s.qteprod + txtQt;
            
             sp.Update(s);
@@ -65,10 +66,13 @@ namespace Stickers.Controllers
 
          return   RedirectToAction("IndexProducts");
         }
+
+
         [HttpPost]
-        public ActionResult IndexProducts(String SearchString)
+        public ActionResult Serach(String SearchString)
         {
-            var Products = sp.GetMany(p => p.nameprod.Contains(SearchString));
+            //search for product by key word
+            var Products = sp.search_kw(SearchString);
             return View(Products);
         }
 
@@ -87,15 +91,68 @@ namespace Stickers.Controllers
             return View();
         }
 
+
+        protected bool verifyFiles(HttpPostedFileBase item)
+        {
+            bool flag = true;
+           
+               
+              if (item != null)
+                    {
+                if (item.ContentLength > 0 && item.ContentLength < 5000000)
+                {
+
+
+                    if (!(Path.GetExtension(item.FileName).ToLower() == ".jpg" ||
+                        Path.GetExtension(item.FileName).ToLower() == ".png" ||
+                        Path.GetExtension(item.FileName).ToLower() == ".bmp" ||
+                        Path.GetExtension(item.FileName).ToLower() == ".jpeg"))
+                    {
+                        flag = false;
+                    }
+
+
+
+
+
+                }
+                      else { flag = false; }
+
+               }
+
+
+
+                
+            
+                     else { flag = false; }
+
+            return flag;
+        }
+
+
+
         // POST: Products/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Product prod, HttpPostedFileBase item)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid && verifyFiles(item))// check if the model state is valid , and the file (image in the input is valid)
 
-                return RedirectToAction("Index");
+                {
+                    string name = "name" + prod.nameprod + "im" + DateTime.Now.Minute+DateTime.Now.Millisecond+ Path.GetExtension(item.FileName);
+                  //creating the name of the product
+                   var path = Path.Combine(Server.MapPath("../Content/stickerspic/"), name);
+                    //creating the path of the image combining the name of the product with the minute and millisecond to get a unique name for it
+
+                    item.SaveAs(path);
+                    //image saved in the path
+                    prod.imgprod = path;
+                                    
+                    sp.add_product(prod);
+                }
+
+                return RedirectToAction("IndexProducts");
             }
             catch
             {
@@ -106,18 +163,20 @@ namespace Stickers.Controllers
         // GET: Products/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            //request a product by id and returning the product model in the view
+            return View(sp.GetById(id));
         }
 
         // POST: Products/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Product prod)
         {
             try
             {
-                // TODO: Add update logic here
+                // just call the service and it will do the work check service production for more informations
+                sp.updateprod(prod);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexProducts");
             }
             catch
             {
@@ -128,8 +187,14 @@ namespace Stickers.Controllers
         // GET: Products/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            sp.deleteprod(id);
+            return RedirectToAction("IndexProducts");
         }
+
+
+
+
+
 
         // POST: Products/Delete/5
         [HttpPost]
@@ -146,5 +211,12 @@ namespace Stickers.Controllers
                 return View();
             }
         }
+
+
+
+
+
+
+
     }
 }
