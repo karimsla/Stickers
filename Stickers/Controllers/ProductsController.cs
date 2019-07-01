@@ -22,8 +22,19 @@ namespace Stickers.Controllers
 
             return View(lp);
         }
+        [HttpPost]
+        public ActionResult Index(string search,string type)
+        {
+            IserviceProduct ip = new serviceProduct();
 
+            string ch = search;//valeur à chercher
+            string ch1 = type;//type de trie
+            List<Product> lp = ip.search_kw(search);
+            if (type.Equals("desc"))
+                lp.Reverse();
 
+            return View(lp);
+        }
 
 
         // GET: Products
