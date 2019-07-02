@@ -75,7 +75,9 @@ namespace Stickers.Controllers
             //the admin will put the date of the delievery and the command will be validated
             cmd.dateliv = date;
             spc.validateCommande(cmd);
-
+            IserviceMail sm = new serviceMail();
+            sm.sendMail(cmd.email,"order from ri9 Tounsi have been reviewed",
+                "your order have been reviewed and it will be delievered "+date.ToString()+"<br>We will call you as soon as possible");
 
             return View(cmd);
 

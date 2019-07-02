@@ -101,6 +101,8 @@
     <Compile Include="serviceClaim\serviceClaim.cs" />
     <Compile Include="serviceCommand\IserviceCommand.cs" />
     <Compile Include="serviceCommand\serviceCommand.cs" />
+    <Compile Include="serviceMails\IserviceMail.cs" />
+    <Compile Include="serviceMails\serviceMail.cs" />
     <Compile Include="servicePattern\IservicePattern.cs" />
     <Compile Include="servicePattern\servicePattern.cs" />
     <Compile Include="serviceProducts\IserviceProduct.cs" />
