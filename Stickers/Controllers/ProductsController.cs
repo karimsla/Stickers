@@ -56,9 +56,8 @@ namespace Stickers.Controllers
         [HttpPost]
         public ActionResult Index2(int id , int txtQt)
         {
-            
-            // explain to me what the fuck this controller does
 
+            //this method adds quantity to an existing product 
             Product s = new Product();
             
             s = sp.GetById(id);

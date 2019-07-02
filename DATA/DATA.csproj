@@ -121,6 +121,10 @@
     <Compile Include="Migrations\201906270035027_phamas.Designer.cs">
       <DependentUpon>201906270035027_phamas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907021701583_ad1.cs" />
+    <Compile Include="Migrations\201907021701583_ad1.Designer.cs">
+      <DependentUpon>201907021701583_ad1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -149,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906270035027_phamas.resx">
       <DependentUpon>201906270035027_phamas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907021701583_ad1.resx">
+      <DependentUpon>201907021701583_ad1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -57,8 +57,10 @@ namespace Stickers.Controllers
         public ActionResult Contact(Claim claim)
         {
             IserviceClaim spcl = new serviceClaim();
+         
             if (ModelState.IsValid)
             {
+                claim.claimdate = DateTime.Today.Date;
                 spcl.Add(claim);
                 spcl.Commit();
 
