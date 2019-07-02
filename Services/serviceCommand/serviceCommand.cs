@@ -31,11 +31,12 @@ namespace Services
 
         public List<Command> ListCommand()
         {
-            return this.GetAll().ToList();
+            return this.GetAll().OrderBy(d=>d.datecmd).ToList();
         }
 
         public void validateCommande(Command cmd)
         {
+            //validate command iscomfirmed =true and substract the qte of the command from the productS
             IserviceProduct spp = new serviceProduct();
             Command _cmd = this.GetById(cmd.idcmd);
             Product prod=spp.GetById(_cmd.idprod);

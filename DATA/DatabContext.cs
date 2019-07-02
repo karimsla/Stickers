@@ -19,6 +19,7 @@ namespace DATA
             public DbSet<Product> Products { get; set; }
             public DbSet<Admin> Admins { get; set; }
             public DbSet<Command> Commands { get; set; }
+            public DbSet<Claim> Claims { get; set; }
 
 
     }

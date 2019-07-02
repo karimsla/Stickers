@@ -9,6 +9,7 @@ using System.Web.Security;
 
 using System.Linq;
 using System.Web;
+using Services.serviceClaim;
 
 namespace Stickers.Controllers
 {
@@ -87,76 +88,52 @@ namespace Stickers.Controllers
         {
             return View();
         }
-        // GET: Admin/Details/5
-        public ActionResult Details(int id)
+  
+      
+
+   
+  
+
+        /// <summary>
+        /// 7/2/2019
+        /// </summary>
+        /// 
+        /// 
+
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult DetailProd(int id)
         {
-            return View();
+            //detail prod for admin that means without add command option
+            //this one have no view create the view
+            return View(sp.GetById(id));
         }
 
-        // GET: Admin/Create
-        public ActionResult Create()
+
+
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult Claims()
         {
-            return View();
+
+            //atef is supposed to fix the template for this one 
+            //the admin can see the list of claims ordred by date
+            //the admin can delete a claim check the next action result
+            IserviceClaim spcl = new serviceClaim();
+            List<Claim> cl = new List<Claim>();
+            cl = spcl.GetAll().OrderBy(x => x.claimdate).ToList();
+            return View(cl);
         }
 
-        // POST: Admin/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult deleteClaim(int id)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            //the admin can delete a claim
+            IserviceClaim spcl = new serviceClaim();
+            spcl.Delete(spcl.GetById(id));
+            spcl.Commit();
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Claims");
         }
 
-        // GET: Admin/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: Admin/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Admin/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Admin/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

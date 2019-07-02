@@ -1,5 +1,6 @@
 ﻿using Model;
 using Services;
+using Stickers.Security;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +18,7 @@ namespace Stickers.Controllers
         // GET: Products
         public ActionResult Index()
         {
+            //list prod for users
             IserviceProduct ip = new serviceProduct();
             List<Product> lp = new List<Product>();
             lp = ip.listprod();
@@ -26,6 +28,7 @@ namespace Stickers.Controllers
         [HttpPost]
         public ActionResult Index(string search,string type)
         {
+            //search product for user
             IserviceProduct ip = new serviceProduct();
 
             string ch = search;//valeur à chercher
@@ -54,7 +57,7 @@ namespace Stickers.Controllers
         public ActionResult Index2(int id , int txtQt)
         {
             
-
+            // explain to me what the fuck this controller does
 
             Product s = new Product();
             
@@ -86,11 +89,7 @@ namespace Stickers.Controllers
         }
 
         // GET: Products/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
+       
 
         protected bool verifyFiles(HttpPostedFileBase item)
         {
@@ -131,43 +130,9 @@ namespace Stickers.Controllers
 
 
 
-        // POST: Products/Create
-        [HttpPost]
-        public ActionResult Create(Product prod, HttpPostedFileBase item)
-        {
-            try
-            {
-                if (ModelState.IsValid && verifyFiles(item))// check if the model state is valid , and the file (image in the input is valid)
-
-                {
-                    string name = "name" + prod.nameprod + "im" + DateTime.Now.Minute+DateTime.Now.Millisecond+ Path.GetExtension(item.FileName);
-                  //creating the name of the product
-                   var path = Path.Combine(Server.MapPath("../Content/stickerspic/"), name);
-                    //creating the path of the image combining the name of the product with the minute and millisecond to get a unique name for it
-
-                    item.SaveAs(path);
-                    //image saved in the path
-                    prod.imgprod = path;
-                                    
-                    sp.add_product(prod);
-                }
-
-                return RedirectToAction("IndexProducts");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Products/Edit/5
-        public ActionResult Edit(int id)
-        {
-            //request a product by id and returning the product model in the view
-            return View(sp.GetById(id));
-        }
-
+      
         // POST: Products/Edit/5
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         public ActionResult Edit(Product prod)
         {
@@ -180,11 +145,13 @@ namespace Stickers.Controllers
             }
             catch
             {
-                return View();
+                ModelState.AddModelError("","error occured try again");
+                return View(prod);
             }
         }
 
         // GET: Products/Delete/5
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             sp.deleteprod(id);
@@ -193,26 +160,73 @@ namespace Stickers.Controllers
 
 
 
+        /// <summary>
+        /// 7/2/2019
+        /// </summary>
+       
 
 
-
-        // POST: Products/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // GET: Products/Edit/5
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult Edit(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            // this one have no view 
+            //request a product by id and returning the product model in the view
+            return View(sp.GetById(id));
         }
 
 
+
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult Create()
+        {
+            // this one have no view add the view for it 
+            // to create a product by the admin
+            return View();
+        }
+
+
+
+        // POST: Products/Create
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult Create(Product prod, HttpPostedFileBase item)
+        {
+
+
+
+            if (!verifyFiles(item))
+            {
+                ModelState.AddModelError("", "verify pictures format and size must be trype jpg jpeg png bmp ");
+            }
+            try
+            {
+                if (ModelState.IsValid)// check if the model state is valid , and the file (image in the input is valid)
+
+                {
+                    string name = "name" + prod.nameprod + "im" + DateTime.Now.Minute + DateTime.Now.Millisecond + Path.GetExtension(item.FileName);
+                    //creating the name of the product
+                    var path = Path.Combine(Server.MapPath("../Content/stickerspic/"), name);
+                    //creating the path of the image combining the name of the product with the minute and millisecond to get a unique name for it
+
+                    item.SaveAs(path);
+                    //image saved in the path
+                    prod.imgprod = path;
+
+                    sp.add_product(prod);
+                    return RedirectToAction("IndexProducts");
+                }
+
+                return View(prod);
+            }
+            catch
+            {
+                ModelState.AddModelError("", "try again later an error occured");
+
+                return View();
+            }
+        }
 
 
 

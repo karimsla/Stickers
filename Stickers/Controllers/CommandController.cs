@@ -20,6 +20,15 @@ namespace Stickers.Controllers
 
 
 
+        /// <summary>
+        /// 7/2/2019
+        /// </summary>
+        
+
+            //all the controllers in this page have no view 
+
+
+
         [HttpGet]
         public ActionResult Command(int prodid)
         {
@@ -37,9 +46,14 @@ namespace Stickers.Controllers
         [HttpPost]
         public ActionResult Command(Command cmd)
         {
+            if (cmd.product.qteprod < cmd.qteprod)
+            {
+                ModelState.AddModelError("quantity not enough","not enough quantity in the stock");
+            }
 
             if (ModelState.IsValid)
             {
+                
                 //if modelstate is valid then add_command check service command for more informations
                 IserviceCommand spc = new serviceCommand();
                 spc.add_commande(cmd);
