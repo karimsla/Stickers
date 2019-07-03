@@ -1,0 +1,84 @@
+﻿@model Model.Product
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/templateback.cshtml";
+}
+
+
+
+@using (Html.BeginForm("Create", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+
+
+            <div class="col-lg-6">
+
+                <div class="card">
+                    <div class="card-header">Create product </div>
+                    <div class="card-body card-block">
+                        <form action="" method="post" class="">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">Product name</div>
+                                    @Html.EditorFor(model => model.nameprod, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.nameprod, "", new { @class = "text-danger" })
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-credit-card"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">Quantity</div>
+                                    @Html.EditorFor(model => model.qteprod, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.qteprod, "", new { @class = "text-danger" })
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-sort-numeric-asc"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="has-success form-group">
+                                <label for="inputSuccess2i" class=" form-control-label">Description</label>
+                                @Html.TextAreaFor(model => model.description, new { @class = "whatever-class", @cols = 40, @rows = 5 })
+                                @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">Price</div>
+                                    @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-dollar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3">
+                                    <label for="file-input" class=" form-control-label">Upload picture</label>
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <input type="file" id="file-input" name="postedFile" class="form-control-file">
+                                </div>
+                            </div>
+                            <div class="form-actions form-group">
+                                <button type="submit" class="btn btn-primary btn-sm">Add product</button>
+                                @Html.ActionLink("Products", "IndexProducts", "Admin", new { @class = "btn btn-info glyphicon glyphicon-list-alt" })
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+   </div>
+
+            
+            }
+
+      

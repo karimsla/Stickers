@@ -1,0 +1,130 @@
+﻿@model Model.Product
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/templateback.cshtml";
+}
+
+
+
+@using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+
+    <hr />
+
+
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.idprod)
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <!--Card-->
+                    <div class="card card-cascade card-ecommerce narrower" style="width: 25rem;">
+
+                        <!--Card image-->
+                        <div class="view view-cascade overlay">
+                            <img class="card-img-top" src=@Model.imgprod alt="Card image with a picture of dance class.">
+                            <a>
+                                <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                            </a>
+                        </div>
+                        <!--/.Card image-->
+                        <!--Card content-->
+                        <div class="card-body card-body-cascade text-center">
+                            <!--Category & Title-->
+
+                            <h4 class="card-title"><strong><a href="">@Model.nameprod</a></strong></h4>
+
+                            <!--Description-->
+                            <p class="card-text">
+                                @Model.description
+                            </p>
+
+                            <!--Card footer-->
+                            <div class="card-footer">
+                                <span class="float-left">@Model.price TND</span>
+                                <span class="float-right">
+                                    @ViewBag.quantite   Sales
+                                </span>
+                            </div>
+
+                        </div>
+                        <!--/.Card content-->
+
+                    </div>
+                </div>
+                <!--/.Card-->
+                <div class="col-lg-6">
+
+                    <div class="card">
+                        <div class="card-header">Edit product @Model.nameprod</div>
+                        <div class="card-body card-block">
+                            <form action="" method="post" class="">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">Product name</div>
+                                        @Html.EditorFor(model => model.nameprod, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.nameprod, "", new { @class = "text-danger" })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-credit-card"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">Quantity</div>
+                                        @Html.EditorFor(model => model.qteprod, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.qteprod, "", new { @class = "text-danger" })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-sort-numeric-asc"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="has-success form-group">
+                                    <label for="inputSuccess2i" class=" form-control-label">Description</label>
+                                    @Html.TextAreaFor(model => model.description, new { @class = "whatever-class", @cols = 40, @rows = 5 })
+                                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">Price</div>
+                                        @Html.EditorFor(model => model.price, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.price, "", new { @class = "text-danger" })
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-dollar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="file-input" class=" form-control-label">Update picture</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="file" id="file-input" name="postedFile" class="form-control-file">
+                                    </div>
+                                </div>
+                                <div class="form-actions form-group">
+                                    <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                    @Html.ActionLink("Products", "IndexProducts", "Admin", new { @class = "btn btn-info glyphicon glyphicon-list-alt" })
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+   
+</div>
+                }
+
+           

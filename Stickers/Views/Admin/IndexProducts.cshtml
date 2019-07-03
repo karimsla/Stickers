@@ -1,0 +1,278 @@
+﻿@model IEnumerable<Model.Product>
+
+@{
+    Layout = "~/Views/Shared/templateback.cshtml";
+}
+
+
+
+
+@*<div class="modal fade" id="detailsModal" tabindex="2" role="dialog" aria-labelledby="exampleModalLabelaaa" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="exampleModalLabel"> would you like to add products</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+            <div class="modal-body">
+                <table class="table table-responsive scroll-container" style="overflow:auto;height:260px;">
+
+                    <tbody id="listbeneficiaire"></tbody>
+
+                </table>
+            </div>
+
+            <div class="modal-footer">
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>*@
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="2" role="dialog" aria-labelledby="exampleModalLabelaaa" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="exampleModalLabel"> would you like to add products</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+            <div class="modal-body">
+                <br />
+                @using (Html.BeginForm("UpdateQuantity", "Admin"))
+                {@Html.AntiForgeryToken()
+                <input class="form-control" name="txtQt" placeholder="Quantity?" id="txtQt" />
+                <input type="hidden" id="id" name="id" />
+                <button type="submit" class="btn btn-primary" id="btnPost">Update</button>
+
+
+            }
+            </div>
+
+            <div class="modal-footer">
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div class="section__content section__content--p30">
+    <div class="container-fluid">
+
+
+        @using (Html.BeginForm())
+        {
+
+
+            <div class="table-data__tool">
+                <div class="table-data__tool-left">
+
+
+                    <div class="row form-group">
+                        <div class="col col-md-12">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-search"></i> Search
+                                    </button>
+                                </div>
+                                @Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "Search by product name" })
+
+                            </div>
+                        </div>
+
+
+                   
+
+
+                    </div>
+
+                </div>
+                <div class="table-data__tool-right">
+                    <p>
+                        @Html.ActionLink("Add product", "Create", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
+                    </p>
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+        }
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- DATA TABLE -->
+                <h3 class="title-5 m-b-35">Products</h3>
+
+                <div class="table-responsive table-responsive-data2">
+                    <table class="table table-data2">
+                        <thead>
+                            <tr>
+
+                                <th>Product Name</th>
+                                <th>Product Price</th>
+                                <th>Description</th>
+                                <th>Picture</th>
+                                <th>Availability</th>
+                                <th>Quantity</th>
+
+                                <th>Manage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="tr-shadow">
+
+                                    <td class="desc">@item.nameprod</td>
+                                    <td>
+                                        <span class="block-email">@item.price</span>
+                                    </td>
+                                    <td class="desc">@item.description</td>
+                                    <td>
+                                        <img class="zoom" style="width:100%;  height:auto;   " src=@item.imgprod />
+                                    </td>
+
+                                    <style>
+
+
+                                        .zoom:hover {
+                                            transform: scale(2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+                                        }
+                                    </style>
+
+                                    @if (item.qteprod > 0)
+                                    {
+                                        <td>
+
+                                            <button type="submit" class="open btn btn-success btn-sm" href="#" data-toggle="modal" data-target="#exampleModal" data-id="@item.idprod">
+                                                <i class="fa fa-dot-circle-o"></i> Available
+                                            </button>
+
+
+                                        </td>
+
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <button type="submit" class="open btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#exampleModal" data-id="@item.idprod">
+                                                <i class="fa fa-dot-circle-o"></i> Unavailable
+                                            </button>
+                                        </td>
+                                    }
+
+                                    @if (item.qteprod > 0)
+                                    {
+                                        <td class="desc">@item.qteprod</td>}
+                                    else
+                                    {
+                                        <td class="denied">--</td>
+                                    }
+
+                                    <td>
+                                        <div class="table-data-feature">
+
+                                            @Html.ActionLink(" Edit", "Edit", "Admin", new { id = item.idprod }, new { @class = "btn btn-outline-warning" })
+
+                                            <button type="submit" class="open-event btn btn-outline-danger" href="#" data-toggle="modal" data-target="#detailsModal" data-id="@item.idprod">
+                                                Delete
+                                            </button>
+
+
+
+                                            @*<button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Send">
+                                                <i class="zmdi zmdi-mail-send"></i>
+                                            </button>
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                                <i class="zmdi zmdi-edit"></i>
+                                            </button>
+
+
+                                            <a class="open-homeEvents" href="#" data-toggle="modal" data-target="#modalDelete" data-id="@item.idprod">
+                                                <i class="fa fa-history fa-fw"></i>delete
+                                            </a>
+
+
+
+                                            <button class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="More">
+                                                <i class="zmdi zmdi-more"></i>
+                                            </button>*@
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="spacer"></tr>
+                                <tr class="spacer"></tr>
+
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END DATA TABLE -->
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery.min.js"></script>
+
+        <script type="text/javascript">
+            $(document).on("click", ".open", function () {
+                var eventId = $(this).data('id');
+                $('#id').val(eventId);
+                $("#exampleModal").show()
+
+            });
+
+
+        </script>
+        <script type="text/javascript">
+
+
+                        //$(document).ready(function () {
+
+                        //    $(document).on('click', ".open-event", function () {
+                        //        var id = $(this).data('id');
+                        //        $.ajax({
+                        //            url: "/Admin/Description/" + idprod,
+                        //            type: 'GET',
+                        //            data: { idprod: "testing", nameprod: "testing", qteprod: "pic" },
+                        //            dataType: 'json', // added data type
+                        //            success: function (data) {
+                        //                $("#listbeneficiaire").empty();
+
+                        //                $.each(data, function (i, listbeneficiaire) {
+                        //                    $("#listbeneficiaire").append("<tr>")
+
+                        //                    $("#listbeneficiaire").append('<td class="py-1"><img src="/Content/' + listbeneficiaire.idprod + '"  alt="image" /></td>')
+                        //                    $("#listbeneficiaire").append('<td>' + listbeneficiaire.nameprod + '</td>')
+                        //                    $("#listbeneficiaire").append('<td>' + listbeneficiaire.qteprod + '</td>')
+                        //                    $("#listbeneficiaire").append('</tr>')
+                        //                })
+
+                        //            }
+                        //        });
+                        //    });
+
+
+                        //});
+
+
+
+        </script>
+
+
+    </div>
+</div>

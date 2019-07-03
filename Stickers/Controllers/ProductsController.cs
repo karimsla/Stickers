@@ -38,44 +38,7 @@ namespace Stickers.Controllers
         }
 
 
-        // GET: Products
-        public ActionResult IndexProducts()
-        {
-
-            
-            var products = sp.GetMany();
-
-            return View(products);
-        }
-
-
-        // POST: Service/Create
-        [HttpPost]
-        public ActionResult Index2(int id , int txtQt)
-        {
-            
-
-
-            Product s = new Product();
-            
-            s = sp.GetById(id);
-            s.qteprod = s.qteprod + txtQt;
-           
-            sp.Update(s);
-            sp.Commit();
-
-         return   RedirectToAction("IndexProducts");
-        }
-
-
-        [HttpPost]
-        public ActionResult Serach(String SearchString)
-        {
-            //search for product by key word
-            var Products = sp.search_kw(SearchString);
-            return View(Products);
-        }
-
+      
 
         // GET: Products/Details/5
         public ActionResult Details(int id)
@@ -96,6 +59,7 @@ namespace Stickers.Controllers
         {
             bool flag = true;
            
+              
                
               if (item != null)
                     {

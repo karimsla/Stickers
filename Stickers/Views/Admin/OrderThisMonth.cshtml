@@ -1,0 +1,156 @@
+﻿@model IEnumerable<Model.Command>
+
+@{
+    ViewBag.Title = "ListCommand";
+    Layout = "~/Views/Shared/templateback.cshtml";
+}
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="2" role="dialog" aria-labelledby="exampleModalLabelaaa" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="exampleModalLabel"> would you like to confirm this order? Choose the delivery date</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+            <div class="modal-body">
+                <br />
+                @using (Html.BeginForm("Confirmcommand", "Admin"))
+                {@Html.AntiForgeryToken()
+
+                <div class="form-row justify-content-center">
+
+                    <input type="date" id="start" name="datee"
+                           value="03/07/2019">
+
+                    <input type="hidden" id="id" name="id" />
+                    <br>
+                    <button type="submit" class="btn btn-primary" id="btnPost">Confirm</button>
+                </div>
+
+            }
+            </div>
+
+            <div class="modal-footer">
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+<div class="table-data__tool">
+    <div class="table-data__tool-left">
+        <div class="row form-group">
+            <div class="col col-md-12">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-search"></i> Search
+                        </button>
+                    </div>
+                    @Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "Search by product name" })
+
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+    </div>
+    <div class="table-data__tool-right">
+        @Html.ActionLink("All orders", "ListCommand", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
+
+        @Html.ActionLink("Orders this week", "OrderThisWeek", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
+
+
+        @Html.ActionLink("Orders this Month", "OrderThisMonth", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
+
+    </div>
+</div>
+
+
+
+<div class="section__content section__content--p30">
+    <div class="container-fluid">
+
+        <div class="row m-t-30">
+            <div class="col-md-12">
+                <!-- DATA TABLE-->
+                <div class="table-responsive m-b-40">
+                    <table class="table table-borderless table-data3">
+                        <thead>
+                            <tr>
+                                <th>Orders date</th>
+                                <th>Product </th>
+                                <th>Product Quantity </th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Confirmed?</th>
+                                <th>Delivery date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td>@item.datecmd.ToShortDateString()</td>
+                                    <td>@item.product.nameprod</td>
+                                    <td>@item.qteprod</td>
+                                    <td>@item.name</td>
+                                    <td> @item.phone</td>
+                                    <td> @item.adresse</td>
+
+                                    @if (item.isComfirmed == true)
+                                    {
+                                        <td class="process">Confirmed!</td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+
+                                            <button type="submit" class="open btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#exampleModal" data-id="@item.idprod">
+                                                <i class="fa fa-dot-circle-o"></i> Not yet
+                                            </button>
+
+
+                                        </td>
+
+                                    }
+
+                                    <td>@item.dateliv</td>
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div><!-- END DATA TABLE-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).on("click", ".open", function () {
+        var eventId = $(this).data('id');
+        $('#id').val(eventId);
+        $("#exampleModal").show()
+
+    });
+
+
+
+</script>
