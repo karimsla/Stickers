@@ -9,8 +9,7 @@ using System.Web.Security;
 
 using System.Linq;
 using System.Web;
-using System.IO;
-using System.Threading.Tasks;
+using Services.serviceClaim;
 
 namespace Stickers.Controllers
 {
@@ -84,253 +83,57 @@ namespace Stickers.Controllers
             return View();
 
         }
-        // GET: Products
-        public ActionResult IndexProducts()
-        {
-
-
-            var products = sp.GetMany();
-
-            return View(products);
-        }
-
-
-        // GET: Products
-     
-
-        // Update quantity product
-        [HttpPost]
-        public ActionResult UpdateQuantity(int id, int txtQt)
-        {
-
-
-
-            Product s = new Product();
-
-            s = sp.GetById(id);
-            s.qteprod = s.qteprod + txtQt;
-
-            sp.Update(s);
-            sp.Commit();
-
-            return RedirectToAction("IndexProducts");
-        }
-
-
-        [HttpPost]
-        public ActionResult DeleteProduct(int id)
-        {
-
-
-
-            Product s = new Product();
-
-            s = sp.GetById(id);
-            
-
-            sp.Update(s);
-            sp.Commit();
-
-            return RedirectToAction("IndexProducts");
-        }
-
-        //Searching product by name
-        [HttpPost]
-        public ActionResult IndexProducts(String SearchString)
-        {
-            var Products = sp.GetMany(p => p.nameprod.Contains(SearchString));
-            return View(Products);
-        }
-
-        // GET: Admin/Details/5
-        public ActionResult Details(int id)
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult Index2()
         {
             return View();
         }
+  
+      
 
-        // GET: Admin/Create
-        public ActionResult Create()
+   
+  
+
+        /// <summary>
+        /// 7/2/2019
+        /// </summary>
+        /// 
+        /// 
+
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult DetailProd(int id)
         {
-            return View();
-        }
-
-        // POST:Create product
-        [HttpPost]
-        public ActionResult Create(Product prod, HttpPostedFileBase postedFile)
-        {
-            try
-            {
-                if (postedFile != null)
-                {
-                    string path = Server.MapPath("/stickerspictures/");
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
-
-                    postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
-                    ViewBag.Message = "Picture uploaded successfully.";
-
-
-                    prod.imgprod = "/stickerspictures/" + Path.GetFileName(postedFile.FileName);
-                    // just call the service and it will do the work check service production for more informations
-                    prod.imgprod = prod.imgprod;
-                    sp.add_product(prod);
-             
-
-                    return RedirectToAction("IndexProducts");
-                }
-
-                sp.add_product(prod);
-                return RedirectToAction("IndexProducts");
-
-            }
-            catch (NullReferenceException e)
-            {
-                return RedirectToAction("IndexProducts");
-            }
-        
-        }
-
-        
-        // GET: Products/Edit/5
-        public ActionResult Edit(int id)
-        {
-            //request a product by id and returning the product model in the view
-            List<Command> xc = sc.GetMany(a => a.idprod==id).ToList();
-            int v = xc.Sum(w => w.qteprod);
-            ViewBag.quantite = v;
+            //detail prod for admin that means without add command option
+            //this one have no view create the view
             return View(sp.GetById(id));
         }
 
-        // POST: Products/Edit/5
-        [HttpPost]
-        public ActionResult Edit(Product prod, HttpPostedFileBase postedFile)
+
+
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult Claims()
         {
-            Product produitt = sp.GetById(prod.idprod);
-            produitt.nameprod = prod.nameprod;
-            produitt.price = prod.price;
-            produitt.description = prod.description;
-            produitt.qteprod = prod.qteprod;
-            try
-            {
-                if (postedFile != null)
-                {
-                    string path = Server.MapPath("/stickerspictures/");
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
 
-                    postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
-                    ViewBag.Message = "Picture uploaded successfully.";
+            //atef is supposed to fix the template for this one 
+            //the admin can see the list of claims ordred by date
+            //the admin can delete a claim check the next action result
+            IserviceClaim spcl = new serviceClaim();
+            List<Claim> cl = new List<Claim>();
+            cl = spcl.GetAll().OrderBy(x => x.claimdate).ToList();
+            return View(cl);
+        }
 
+        public ActionResult deleteClaim(int id)
+        {
+            //the admin can delete a claim
+            IserviceClaim spcl = new serviceClaim();
+            spcl.Delete(spcl.GetById(id));
+            spcl.Commit();
 
-                    prod.imgprod = "/stickerspictures/" + Path.GetFileName(postedFile.FileName);
-                    // just call the service and it will do the work check service production for more informations
-                    produitt.imgprod = prod.imgprod;
-                    sp.Update(produitt);
-                    sp.Commit();
-
-                   return RedirectToAction("IndexProducts");
-            }
-               
-                    sp.Update(produitt);
-                    sp.Commit();
-                    return RedirectToAction("IndexProducts");
-
-                }
-            catch(NullReferenceException e)
-            {
-               return RedirectToAction("IndexProducts");
-            }
+            return RedirectToAction("Claims");
         }
 
 
 
-        [HttpGet]
-        public JsonResult Description(int id)
-        {
-            //hné aayet el methode li aamaltha 
-            Product pr = sp.GetById(id);
-
-            return Json(pr, JsonRequestBehavior.AllowGet);
-        }
-        //-------------------------------Commandes----------------------------------------
-
-
-        public ActionResult ListCommand()
-
-        {
-            //returnin the list of the commands
-            return View(sc.ListCommand());
-
-        }
-
-        //Confirm command
-        [HttpPost]
-        public ActionResult Confirmcommand(int id, DateTime datee)
-        {
-
-
-
-            Command s = new Command();
-
-            s = sc.GetById(id);
-            // s.qteprod = s.qteprod + txtQt;
-            s.dateliv = datee;
-            s.isComfirmed = true;
-            sc.Update(s);
-            sc.Commit();
-
-            return RedirectToAction("ListCommand");
-        }
-        [HttpGet]
-        public ActionResult OrderThisWeek()
-        {
-            DateTime d = DateTime.Today;
-            DateTime d1 = DateTime.Today.AddDays(-7);
-            List<Command> lc = sc.GetMany(a => a.datecmd >= d1 && a.datecmd <= d).ToList();
-            return View(lc);
-        }
-
-
-        [HttpGet]
-        public ActionResult OrderThisMonth()
-        {
-            DateTime d = DateTime.Today;
-            DateTime d1 = DateTime.Today.AddMonths(-1);
-            List<Command> lc = sc.GetMany(a => a.datecmd >= d1 && a.datecmd <= d).ToList();
-            return View(lc);
-        }
-
-
-
-        //---------------------------------------------------------------------------------
-
-
-
-
-        // GET: Admin/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Admin/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

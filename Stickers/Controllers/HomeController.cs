@@ -1,5 +1,6 @@
 ﻿using Model;
 using Services;
+using Services.serviceClaim;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,11 +54,21 @@ namespace Stickers.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Contact(Claim claim)
         {
-            ViewBag.Message = "Your contact page.";
+            IserviceClaim spcl = new serviceClaim();
+         
+            if (ModelState.IsValid)
+            {
+                claim.claimdate = DateTime.Today.Date;
+                spcl.Add(claim);
+                spcl.Commit();
 
-            return View();
+            }
+           
+            
+
+            return RedirectToAction("index");
         }
     }
 }

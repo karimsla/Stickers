@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace Model
     {
         [Key]
         public int idcmd { get; set; }
-
+        [ForeignKey("product")]
         public int idprod { get; set; }
         public virtual Product product { get; set; }
 
