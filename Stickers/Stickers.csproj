@@ -533,6 +533,12 @@
     <Content Include="Content\datatables\jquery.dataTables.min.css" />
     <Content Include="Content\datatables\jquery.dataTables.min.js" />
     <Content Include="Content\datatables\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\stickerspic\1.jpg" />
+    <Content Include="Content\stickerspic\2.jpg" />
+    <Content Include="Content\stickerspic\3.jpg" />
+    <Content Include="Content\stickerspic\4.jpg" />
+    <Content Include="Content\stickerspic\5.jpg" />
+    <Content Include="Content\stickerspic\6.jpg" />
     <Content Include="ebusiness\contactform\contactform.js" />
     <Content Include="ebusiness\contactform\Readme.txt" />
     <Content Include="ebusiness\css\nivo-slider-theme.css" />
@@ -893,7 +899,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\stickerspic\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Command\" />
     <Folder Include="Views\DeleteMe\" />

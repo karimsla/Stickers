@@ -39,7 +39,23 @@ namespace Stickers.Controllers
             
             return View(lp);
         }
+        
+        public ActionResult order(Command com)
+        {  //make an order
 
+            IserviceCommand spcl = new serviceCommand();
+
+            if (ModelState.IsValid)
+            {
+                com.datecmd = DateTime.Today;
+                spcl.Add(com);
+                spcl.Commit();
+
+            }
+
+
+            return RedirectToAction("Details/"+com.idprod);
+        }
 
         // GET: Products
         public ActionResult IndexProducts()

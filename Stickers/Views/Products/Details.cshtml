@@ -9,12 +9,10 @@
 
 <div class="form-row col-md-12" style="margin-top:50px;margin-bottom:50px">
     <div class="form-group col-md-6">
-
-        <img src="~/ebusiness/img/portfolio/@Model.imgprod" style="width:660px;height:500px" />
-
+        <img src="~/Content/stickerspic/@Model.imgprod" style="width:660px;height:500px" />
     </div>
     <br /><br />
-    <div class="col-md-6 col-sm-6 col-xs-12" >
+    <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="well-middle">
             <center>
                 <div class="single-well">
@@ -54,13 +52,85 @@
             </div>
             <br />
             <div class="floatright">
-                <button class="but">Buy Product</button>
+                <button class="but" data-toggle="modal" data-target="#my_modal">Buy Product</button>
             </div>
         </div>
     </div>
 </div>
 
 
+<div class="modal fade" id="my_modal" tabindex="-1" role="dialog" aria-labelledby="my_modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-header">
+                        <h6 style="color:gold">
+                            <b>
+                                Make an order
+                            </b>
+                        </h6>
+                    </div>
+                    <hr />
+                    <div class="card-body">
+
+                        @using (Html.BeginForm("order", "Products"))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Name</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="name" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Adress</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" name="adresse" placeholder="Tunis..." />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Phone number</label>
+                                <div class="col-sm-7">
+                                    <input type="number" class="form-control" name="phone" placeholder="" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">E-mail</label>
+                                <div class="col-sm-7">
+                                    <input type="email" class="form-control" name="email" placeholder="example@ex.com..." />
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-5 col-form-label">Quantity</label>
+                                <div class="col-sm-7">
+                                    <div class="input-group number-spinner">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
+                                        </span>
+                                        <input type="text" class="form-control text-center" name="qteprod" value="1">
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <input hidden="hidden" value="@Model.idprod" name="idprod" />
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button class="but" type="submit">Order</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <style>
 
@@ -83,3 +153,24 @@
             border-radius: 10px 10px 10px 10px;
         }
 </style>
+
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<script>
+    $(document).on('click', '.number-spinner button', function () {
+        var btn = $(this),
+            oldValue = btn.closest('.number-spinner').find('input').val().trim(),
+            newVal = 0;
+
+        if (btn.attr('data-dir') == 'up') {
+            newVal = parseInt(oldValue) + 1;
+        } else {
+            if (oldValue > 1) {
+                newVal = parseInt(oldValue) - 1;
+            } else {
+                newVal = 1;
+            }
+        }
+        btn.closest('.number-spinner').find('input').val(newVal);
+    });
+</script>
