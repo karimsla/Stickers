@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Model.Product>
+
+@{
+    ViewBag.Title = "Ventes";
+    Layout = "";
+
+}
+
+
+
+<div class="table-responsive">
+    <table class="table table-top-countries">
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.nameprod</td>
+                    <td class="text-right">@item.vente</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -61,6 +61,7 @@ namespace Stickers.Controllers
             if (ModelState.IsValid)
             {
                 claim.claimdate = DateTime.Today.Date;
+                claim.seen = false;
                 spcl.Add(claim);
                 spcl.Commit();
 

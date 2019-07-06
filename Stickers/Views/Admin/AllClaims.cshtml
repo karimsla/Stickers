@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Model.Claim>
+
+@{
+    ViewBag.Title = "AllClaims";
+    Layout = "~/Views/Shared/templateback.cshtml";
+}
+
+
+<div class="section__content section__content--p30">
+    <div class="container-fluid">
+        <h3 class="title-5 m-b-35">Claims</h3>
+
+        <div class="row m-t-30">
+            <div class="col-md-12">
+                <!-- DATA TABLE-->
+                <div class="table-responsive m-b-40">
+                    <table class="table table-borderless table-data3">
+                        <thead>
+                            <tr>
+                                <th>Claim date</th>
+                                <th>Object </th>
+                                <th>Mail </th>
+                                <th>Email</th>
+                                <th>Name</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td>@item.claimdate.ToShortDateString()</td>
+                                    <td>@item.obj</td>
+                                    <td><textarea readonly rows="4" cols="38">@item.body</textarea></td>
+                                    <td>@item.email</td>
+                                    <td> @item.name</td>
+
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div><!-- END DATA TABLE-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery.min.js"></script>

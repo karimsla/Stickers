@@ -19,6 +19,7 @@ namespace Stickers.Controllers
     {
         serviceProduct sp = new serviceProduct();
         serviceCommand sc = new serviceCommand();
+        serviceClaim scc = new serviceClaim();
 
 
         public ActionResult login()
@@ -79,6 +80,13 @@ namespace Stickers.Controllers
             List<Command> xc = sc.GetMany(a => a.isComfirmed == true).ToList();
             float v = xc.Sum(w => w.product.price);
             ViewBag.earnings = v;
+
+
+            //Last 4 claims not seen
+            List<Claim> cno = scc.GetMany(a => a.seen == false).ToList().OrderBy(a=>a.claimdate).ToList();
+            ViewBag.Claims = cno.Count;
+
+
 
 
             return View();
@@ -221,7 +229,7 @@ namespace Stickers.Controllers
             {
                 if (postedFile != null)
                 {
-                    string path = Server.MapPath("/stickerspictures/");
+                    string path = Server.MapPath("/Content/stickerspic/");
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
@@ -231,7 +239,7 @@ namespace Stickers.Controllers
                     ViewBag.Message = "Picture uploaded successfully.";
 
 
-                    prod.imgprod = "/stickerspictures/" + Path.GetFileName(postedFile.FileName);
+                    prod.imgprod =  Path.GetFileName(postedFile.FileName);
                     // just call the service and it will do the work check service production for more informations
                     prod.imgprod = prod.imgprod;
                     sp.add_product(prod);
@@ -275,7 +283,7 @@ namespace Stickers.Controllers
             {
                 if (postedFile != null)
                 {
-                    string path = Server.MapPath("/stickerspictures/");
+                    string path = Server.MapPath("/Content/stickerspic/");
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
@@ -285,7 +293,7 @@ namespace Stickers.Controllers
                     ViewBag.Message = "Picture uploaded successfully.";
 
 
-                    prod.imgprod = "/stickerspictures/" + Path.GetFileName(postedFile.FileName);
+                    prod.imgprod =  Path.GetFileName(postedFile.FileName);
                     // just call the service and it will do the work check service production for more informations
                     produitt.imgprod = prod.imgprod;
                     sp.Update(produitt);
@@ -360,6 +368,64 @@ namespace Stickers.Controllers
             List<Command> lc = sc.GetMany(a => a.datecmd >= d1 && a.datecmd <= d).ToList();
             return View(lc);
         }
+
+
+        //All claims
+        [HttpGet]
+        public ActionResult AllClaims()
+        {   //Update attribute seen=True
+            List<Claim> cno = scc.GetMany(a => a.seen == false).ToList();
+            foreach(var x in cno)
+            {
+                Claim c = scc.GetById(x.idclaim);
+                c.seen = true;
+                scc.Update(c);
+                scc.Commit();
+
+            }
+
+
+
+            List<Claim> cc = scc.GetMany().ToList().OrderByDescending(a => a.claimdate).ToList();
+            return View(cc);
+        }
+
+
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult LastClaims()
+        {
+            List<Claim> cno = scc.GetMany(a => a.seen == false).Take(4).ToList().OrderBy(a => a.claimdate).ToList();
+
+            return View(cno);
+        }
+
+
+        //les ventes des produits
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult Ventes()
+        {
+            
+            List<Product> products = sp.GetMany().ToList();
+
+            foreach (var x in products)
+            {
+                x.vente = sc.GetMany(a => a.idprod == x.idprod).Sum(y => y.qteprod);
+
+            }
+            List<Product> productss = products.OrderByDescending(a => a.vente).Take(8).ToList();
+            return View(productss);
+        }
+        //nos clients
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult Customers()
+        {
+
+            List<Command> comm = sc.GetMany().ToList();
+
+         
+            return View(comm);
+        }
+
 
 
 
