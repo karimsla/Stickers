@@ -14,5 +14,6 @@ namespace Model
         public string body { get; set; }
         public string name { get; set; }
         public DateTime claimdate { get; set; }
+        public bool seen { get; set; }
     }
 }

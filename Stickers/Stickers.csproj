@@ -840,6 +840,8 @@
     <Content Include="Content\datatables\extensions\TableTools\images\psd\file_types.psd" />
     <Content Include="Content\datatables\extensions\TableTools\images\psd\printer.psd" />
     <Content Include="Content\datatables\extensions\TableTools\Readme.md" />
+    <Content Include="Content\stickerspic\aa.jpg" />
+    <Content Include="Content\stickerspic\avatar-03.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -851,13 +853,12 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.6.4.js" />
-    <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -874,8 +875,6 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="stickerspictures\aa.jpg" />
-    <Content Include="stickerspictures\avatar-03.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -904,10 +903,15 @@
     <Content Include="Views\Admin\ListCommand.cshtml" />
     <Content Include="Views\Admin\OrderThisWeek.cshtml" />
     <Content Include="Views\Admin\OrderThisMonth.cshtml" />
+    <Content Include="Views\Admin\AllClaims.cshtml" />
+    <Content Include="Views\Admin\LastClaims.cshtml" />
+    <Content Include="Views\Admin\Ventes.cshtml" />
+    <Content Include="Views\Admin\Customers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="stickerspictures\" />
     <Folder Include="Views\Command\" />
     <Folder Include="Views\DeleteMe\" />
   </ItemGroup>

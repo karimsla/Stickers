@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Model.Command>
+@{
+    ViewBag.Title = "Customers";
+    Layout = "";
+
+}
+
+
+
+<div class="table-responsive">
+    <table class="table table-top-countries">
+
+        <tbody>
+            @foreach (var item in Model.Reverse())
+            {
+                <tr>
+                    <td>@item.name</td>
+                    <td class="text-right">@item.phone</td>
+                </tr>
+            }
+            </tbody>
+    </table>
+</div>

@@ -31,7 +31,7 @@
 
 
 
-<div class="modal fade" id="exampleModal" tabindex="2" role="dialog" aria-labelledby="exampleModalLabelaaa" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelaaa" style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header"><h5 class="modal-title" id="exampleModalLabel"> would you like to add products</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
@@ -143,7 +143,7 @@
                                     </td>
                                     <td class="desc">@item.description</td>
                                     <td>
-                                        <img class="zoom" style="width:100%;  height:auto;   " src=@item.imgprod />
+                                        <img  src="~/Content/stickerspic/@item.imgprod" class="zoom" style="width:100%;  height:auto; " />
                                     </td>
 
                                     <style>

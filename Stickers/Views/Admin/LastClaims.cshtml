@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Model.Claim>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "";
+
+}
+
+
+
+<div class="au-message-list">
+    @foreach (var item in Model.Reverse())
+    {
+        <div class="au-message__item unread">
+            <div class="au-message__item-inner">
+                <div class="au-message__item-text">
+                    <div class="avatar-wrap">
+                        <div class="avatar">
+                            <img src="https://picsum.photos/200/300?random=@item.idclaim" alt="John Smith">
+                        </div>
+                    </div>
+                    <div class="text">
+                        <h5 class="name">@item.name</h5>
+                        <p>@item.obj</p>
+                    </div>
+                </div>
+                <div class="au-message__item-time">
+                    <span>@item.claimdate</span>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+
+
+
+
+
+
+
