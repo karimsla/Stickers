@@ -46,7 +46,10 @@ namespace Stickers.Controllers
         [HttpPost]
         public ActionResult Command(Command cmd)
         {
-            if (cmd.product.qteprod < cmd.qteprod)
+
+            IserviceProduct ps = new serviceProduct();
+            Product p=ps.GetById(cmd.idprod);
+            if (p.qteprod < cmd.qteprod)
             {
                 ModelState.AddModelError("quantity not enough","not enough quantity in the stock");
             }
@@ -61,12 +64,14 @@ namespace Stickers.Controllers
 
 
 
-            return View();
+            return RedirectToAction("Details/"+cmd.idprod,"Products");
 
         }
 
-
-
+        private IserviceCommand serviceCommand()
+        {
+            throw new NotImplementedException();
+        }
 
         [HttpGet]
         public ActionResult ValidateCommand(Command cmd, DateTime date)

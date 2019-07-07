@@ -539,6 +539,9 @@
     <Content Include="Content\stickerspic\4.jpg" />
     <Content Include="Content\stickerspic\5.jpg" />
     <Content Include="Content\stickerspic\6.jpg" />
+    <Content Include="Content\stickerspic\finale-png-2.png" />
+    <Content Include="Content\stickerspic\finale-png.png" />
+    <Content Include="Content\stickerspic\hand-tattoo.png" />
     <Content Include="ebusiness\contactform\contactform.js" />
     <Content Include="ebusiness\contactform\Readme.txt" />
     <Content Include="ebusiness\css\nivo-slider-theme.css" />
