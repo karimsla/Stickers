@@ -31,7 +31,14 @@ namespace Services
 
         public List<Command> ListCommand()
         {
-            return this.GetAll().OrderBy(d=>d.datecmd).ToList();
+            IserviceProduct spp = new serviceProduct();
+            var cmd=this.GetMany().OrderBy(d=>d.datecmd).ToList();
+            foreach(Command i in cmd)
+            {
+                if(i.product==null)
+                i.product = spp.GetById(i.idprod);
+            }
+            return cmd.ToList();
         }
 
         public void validateCommande(Command cmd)

@@ -152,7 +152,7 @@ namespace Stickers.Controllers
         public ActionResult Delete(int id)
         {
             sp.deleteprod(id);
-            return RedirectToAction("IndexProducts");
+            return RedirectToAction("IndexProducts","Admin");
         }
 
 

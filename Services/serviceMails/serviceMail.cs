@@ -15,8 +15,8 @@ namespace Services
 
             try
             {
-                string sendermail = "mail";
-                string senderpassword = "password";
+                string sendermail = "ri9tounsii @gmail.com";
+                string senderpassword = "ri9tounsi123";
                 SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
                 client.EnableSsl = true;
                 client.Timeout = 1000000;

@@ -35,7 +35,7 @@ namespace Services
 
         public List<Product> listprod()
         {
-            return this.GetMany(x => x.qteprod > 0).OrderBy(s=>s.cmd.Count()).ToList();
+            return this.GetMany(x => x.qteprod > 0).OrderBy(s=>s.cmd==null?s.qteprod:s.cmd.Count()).ToList();
         }
 
         public List<Product> listprodadmin()
