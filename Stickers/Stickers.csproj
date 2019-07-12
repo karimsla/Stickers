@@ -539,6 +539,9 @@
     <Content Include="Content\stickerspic\4.jpg" />
     <Content Include="Content\stickerspic\5.jpg" />
     <Content Include="Content\stickerspic\6.jpg" />
+    <Content Include="Content\stickerspic\finale-png-2.png" />
+    <Content Include="Content\stickerspic\finale-png.png" />
+    <Content Include="Content\stickerspic\hand-tattoo.png" />
     <Content Include="ebusiness\contactform\contactform.js" />
     <Content Include="ebusiness\contactform\Readme.txt" />
     <Content Include="ebusiness\css\nivo-slider-theme.css" />
@@ -548,6 +551,7 @@
     <Content Include="ebusiness\img\about\2.jpg" />
     <Content Include="ebusiness\img\apple-touch-icon.png" />
     <Content Include="ebusiness\img\background\bg1.jpg" />
+    <Content Include="ebusiness\img\background\logo-156.png" />
     <Content Include="ebusiness\img\background\nav-bar-logo-jpeg.jpg" />
     <Content Include="ebusiness\img\background\nav-bar-logo-png.png" />
     <Content Include="ebusiness\img\background\slider1.jpg" />

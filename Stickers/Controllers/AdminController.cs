@@ -336,17 +336,18 @@ namespace Stickers.Controllers
         [HttpPost]
         public ActionResult Confirmcommand(int id, DateTime datee)
         {
+            IserviceCommand spc = new serviceCommand();
 
 
+            Command cmd = new Command();
 
-            Command s = new Command();
-
-            s = sc.GetById(id);
-            // s.qteprod = s.qteprod + txtQt;
-            s.dateliv = datee;
-            s.isComfirmed = true;
-            sc.Update(s);
-            sc.Commit();
+            cmd = sc.GetById(id);
+            //the admin will put the date of the delievery and the command will be validated
+            cmd.dateliv = datee;
+            spc.validateCommande(cmd);
+            IserviceMail sm = new serviceMail();
+            sm.sendMail(cmd.email, "order from ri9 Tounsi have been reviewed",
+                "your order have been reviewed and it will be delievered " + datee.ToString() + "<br>We will call you as soon as possible");
 
             return RedirectToAction("ListCommand");
         }
