@@ -129,6 +129,10 @@
     <Compile Include="Migrations\201907041248486_seenattribute.Designer.cs">
       <DependentUpon>201907041248486_seenattribute.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907120113256_model annotation.cs" />
+    <Compile Include="Migrations\201907120113256_model annotation.Designer.cs">
+      <DependentUpon>201907120113256_model annotation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -163,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907041248486_seenattribute.resx">
       <DependentUpon>201907041248486_seenattribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907120113256_model annotation.resx">
+      <DependentUpon>201907120113256_model annotation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

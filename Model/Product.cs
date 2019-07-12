@@ -12,10 +12,15 @@ namespace Model
     {
         [Key]
         public int idprod { get; set; }
+        [Required]
         public string nameprod { get; set; }
+        [Required]
         public int qteprod { get; set; }
+        [Required]
         public string description { get; set; }
+        [Required]
         public string imgprod { get; set; }
+        [Required]
         public float price { get; set; }
         [NotMapped]
         public int vente { get; set; }
