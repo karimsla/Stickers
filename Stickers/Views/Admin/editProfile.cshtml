@@ -1,0 +1,91 @@
+﻿@model Model.Admin
+
+@{
+    ViewBag.Title = "editProfile";
+    Layout = "~/Views/Shared/templateback.cshtml";
+}
+
+@using (Html.BeginForm("editProfile", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+
+
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.idAdmin)
+        <div class="section__content section__content--p30">
+            <div class="container-fluid">
+
+                <div class="row">
+                    
+                    <!--/.Card-->
+                    <div class="col-lg-6">
+
+                        <div class="card">
+                            <div class="card-header">Edit Admin Profile</div>
+                            <div class="card-body card-block">
+                                <form action="" method="post" class="">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Username</div>
+                                            @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Email</div>
+                                            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                            <div class="input-group-addon">
+                                                <i class="far fa-envelope"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">Password</div>
+                                            @Html.PasswordFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                                            <div class="input-group-addon">
+                                                <i class="far fa-envelope"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">confirm password</div>
+                                            <input type="password" id="confirmpassword" name="confirmpassword"  >
+                                            <div class="input-group-addon">
+                                                <i class="far fa-envelope"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-actions form-group">
+                                        <span style="color:red">@ViewBag.error</span>    <span style="color:green">@ViewBag.success</span>
+                                        <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                        @Html.ActionLink("Cancel", "Index", "Admin", new { @class = "btn btn-info glyphicon glyphicon-list-alt" })
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+}

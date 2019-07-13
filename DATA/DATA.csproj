@@ -133,6 +133,14 @@
     <Compile Include="Migrations\201907120113256_model annotation.Designer.cs">
       <DependentUpon>201907120113256_model annotation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907131420389_majpassword.cs" />
+    <Compile Include="Migrations\201907131420389_majpassword.Designer.cs">
+      <DependentUpon>201907131420389_majpassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201907131444042_majdeleteconfirm.cs" />
+    <Compile Include="Migrations\201907131444042_majdeleteconfirm.Designer.cs">
+      <DependentUpon>201907131444042_majdeleteconfirm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -170,6 +178,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907120113256_model annotation.resx">
       <DependentUpon>201907120113256_model annotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907131420389_majpassword.resx">
+      <DependentUpon>201907131420389_majpassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907131444042_majdeleteconfirm.resx">
+      <DependentUpon>201907131444042_majdeleteconfirm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

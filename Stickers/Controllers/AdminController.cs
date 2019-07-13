@@ -32,38 +32,45 @@ namespace Stickers.Controllers
 
 
         [HttpPost]
-        public ActionResult editProfile(Admin ad,string password)
+        public ActionResult editProfile(Admin ad, string confirmpassword)
         {
-           //we will get the admin from the data base to attach it
-            Admin _admin = spa.GetById(ad.idAdmin);
-            if (_admin.email != ad.email && !string.IsNullOrEmpty(ad.email) && !string.IsNullOrWhiteSpace(ad.email))
-            {
-                //check if the email is not null , empty or white space and the change it
-                _admin.email = ad.email;
-            }
-            if(_admin.username!=ad.username && !string.IsNullOrEmpty(ad.username) && !string.IsNullOrWhiteSpace(ad.username))
-            {
-                //check if the username isn't null , emtpy or white space and then change it
-                _admin.username = ad.username;
-            }
-            if(ad.password!="" && !string.IsNullOrWhiteSpace(ad.password) && ad.password==password)
-            {
-                //for the password it s more tricky 
-                //check if it s empty the check it s not white space and check if the two passord match
-                _admin.password = ad.password;
+           
+                //we will get the admin from the data base to attach it
+                Admin _admin = spa.GetById(ad.idAdmin);
+                if (_admin.email != ad.email && !string.IsNullOrEmpty(ad.email) && !string.IsNullOrWhiteSpace(ad.email))
+                {
+                    //check if the email is not null , empty or white space and the change it
+                    _admin.email = ad.email;
+                }
+                if (_admin.username != ad.username && !string.IsNullOrEmpty(ad.username) && !string.IsNullOrWhiteSpace(ad.username))
+                {
+                    //check if the username isn't null , emtpy or white space and then change it
+                    _admin.username = ad.username;
+                }
+                if (ad.password != "" && !string.IsNullOrWhiteSpace(ad.password) && ad.password == confirmpassword)
+                {
+                    //for the password it s more tricky 
+                    //check if it s empty the check it s not white space and check if the two passord match
+                    _admin.password = ad.password;
 
-            }else if(ad.password!="" && ad.password != password)
-            {
-                //if the two password doesn't math return the same view with error msg
-                ViewBag.error = "password doesn't math";
+                }
+                else if (ad.password != "" && ad.password != confirmpassword)
+                {
+                    //if the two password doesn't math return the same view with error msg
+                    ViewBag.error = "password doesn't math";
                     return View();
-            }
+                }
             //now update and commit
+
+
             spa.Update(_admin);
-            spa.Commit();
+                spa.Commit();
 
+                ViewBag.success = "Profile updated";
+                return View();
 
-            return RedirectToAction("index");
+          
+
         }
 
 
@@ -478,9 +485,7 @@ namespace Stickers.Controllers
 
         //---------------------------------------------------------------------------------
 
-
-
-
+   
         // GET: Admin/Delete/5
         public ActionResult Delete(int id)
         {
