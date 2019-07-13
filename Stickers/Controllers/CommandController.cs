@@ -96,6 +96,11 @@ namespace Stickers.Controllers
             
         }
 
+        public PartialViewResult Details(int id)
+        {
+            return PartialView("Details", spc.GetById(id));
+        }
+
 
     }
 }
