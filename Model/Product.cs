@@ -24,8 +24,9 @@ namespace Model
         public float price { get; set; }
         [NotMapped]
         public int vente { get; set; }
-
-
+        public string img1 { get; set; }
+        public string img2 { get; set; }
+        public string img3 { get; set; }
         public virtual ICollection<Command> cmd { get; set; }
     }
 }

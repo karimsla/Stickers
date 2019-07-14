@@ -40,6 +40,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
@@ -105,6 +108,8 @@
     <Compile Include="serviceMails\serviceMail.cs" />
     <Compile Include="servicePattern\IservicePattern.cs" />
     <Compile Include="servicePattern\servicePattern.cs" />
+    <Compile Include="servicePDF\iservicePDF.cs" />
+    <Compile Include="servicePDF\servicePDF.cs" />
     <Compile Include="serviceProducts\IserviceProduct.cs" />
     <Compile Include="serviceProducts\serviceProduct.cs" />
   </ItemGroup>

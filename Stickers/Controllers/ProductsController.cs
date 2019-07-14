@@ -97,11 +97,11 @@ namespace Stickers.Controllers
 
         // POST: Products/Create
         [HttpPost]
-        public ActionResult Create(Product prod, HttpPostedFileBase item)
+        public ActionResult Create(Product prod, HttpPostedFileBase item, HttpPostedFileBase img1, HttpPostedFileBase img2, HttpPostedFileBase img3)
         {
             try
             {
-                if (ModelState.IsValid && verifyFiles(item))// check if the model state is valid , and the file (image in the input is valid)
+                if (ModelState.IsValid && verifyFiles(item) && verifyFiles(img1) && verifyFiles(img2) && verifyFiles(img3))// check if the model state is valid , and the file (image in the input is valid)
 
                 {
                     string name = "name" + prod.nameprod + "im" + DateTime.Now.Minute+DateTime.Now.Millisecond+ Path.GetExtension(item.FileName);
@@ -112,8 +112,20 @@ namespace Stickers.Controllers
                     item.SaveAs(path);
                     //image saved in the path
                     prod.imgprod = path;
-                                    
+
+                    prod.img1 = name + "one";
+                    prod.img2 = name + "two";
+                    prod.img3 = name + "three";
+                    img1.SaveAs(Path.Combine(Server.MapPath("../Content/stickerspic/"), prod.img1));
+                    img2.SaveAs(Path.Combine(Server.MapPath("../Content/stickerspic/"), prod.img2));
+                    img3.SaveAs(Path.Combine(Server.MapPath("../Content/stickerspic/"), prod.img3));
+
                     sp.add_product(prod);
+                }
+                else
+                {
+                    ViewBag.error = "files or input are invalid";
+                    return View();
                 }
 
                 return RedirectToAction("IndexProducts");

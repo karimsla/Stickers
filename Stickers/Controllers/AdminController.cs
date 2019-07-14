@@ -21,6 +21,7 @@ namespace Stickers.Controllers
         serviceCommand sc = new serviceCommand();
         serviceClaim scc = new serviceClaim();
         IserviceAdmin spa = new serviceAdmin();
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpGet]
         public ActionResult editProfile()
         {
@@ -30,7 +31,7 @@ namespace Stickers.Controllers
             return View(ad);
         }
 
-
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         public ActionResult editProfile(Admin ad, string confirmpassword)
         {
@@ -145,14 +146,7 @@ namespace Stickers.Controllers
             return View();
 
         }
-        [CustomAuthorizeAttribute(Roles = "Admin")]
-        public ActionResult Index2()
-        {
-            return View();
-        }
-  
-      
-
+    
    
   
 
@@ -185,6 +179,7 @@ namespace Stickers.Controllers
             return View(cl);
         }
 
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult deleteClaim(int id)
         {
             //the admin can delete a claim
@@ -200,6 +195,7 @@ namespace Stickers.Controllers
 
         //------------------------------------------------------
         // GET: Products
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult IndexProducts()
         {
 
@@ -214,6 +210,7 @@ namespace Stickers.Controllers
 
 
         // Update quantity product
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         public ActionResult UpdateQuantity(int id, int txtQt)
         {
@@ -232,7 +229,7 @@ namespace Stickers.Controllers
         }
 
 
-
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         public ActionResult DeleteProduct(int id)
         {
@@ -251,6 +248,7 @@ namespace Stickers.Controllers
         }
 
         //Searching product by name
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         public ActionResult IndexProducts(String SearchString)
         {

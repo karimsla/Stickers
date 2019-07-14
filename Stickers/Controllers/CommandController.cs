@@ -1,10 +1,16 @@
-﻿using Model;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Model;
 using Services;
+using Stickers.Security;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 
 namespace Stickers.Controllers
 {
@@ -68,11 +74,8 @@ namespace Stickers.Controllers
 
         }
 
-        private IserviceCommand serviceCommand()
-        {
-            throw new NotImplementedException();
-        }
 
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpGet]
         public ActionResult ValidateCommand(Command cmd, DateTime date)
         {
@@ -88,13 +91,7 @@ namespace Stickers.Controllers
 
         }
 
-        public ActionResult ListCommand()
-            
-        {
-            //returnin the list of the commands
-            return View(spc.ListCommand());
-            
-        }
+  
 
         public PartialViewResult Details(int id)
         {
@@ -102,5 +99,47 @@ namespace Stickers.Controllers
         }
 
 
+
+
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public FileResult CreatePdf(int id)
+        {
+            Command cmd = spc.GetById(id);
+            iservicePDF isp = new servicePDF();
+            MemoryStream workStream = new MemoryStream();
+            StringBuilder status = new StringBuilder("");
+            DateTime dTime = DateTime.Now;
+            //file name to be created   
+            string strPDFFileName = string.Format("Command:" + cmd.idcmd.ToString() + "-" + ".pdf");
+            Document doc = new Document();
+            doc.SetMargins(10f, 10f, 10f, 10f);
+            //Create PDF Table with 5 columns  
+            PdfPTable tableLayout = new PdfPTable(10);
+            doc.SetMargins(10f, 10f, 10f, 10f);
+            //Create PDF Table  
+
+            //file will created in this path  
+            string strAttachment = Path.Combine(Server.MapPath("../Content/stickerspic/"), strPDFFileName);
+
+
+            PdfWriter.GetInstance(doc, workStream).CloseStream = false;
+            doc.Open();
+
+            //Add Content to PDF   
+            doc.Add(isp.Add_Content_To_PDF(tableLayout, cmd));
+
+            // Closing the document  
+            doc.Close();
+
+            byte[] byteInfo = workStream.ToArray();
+            workStream.Write(byteInfo, 0, byteInfo.Length);
+            workStream.Position = 0;
+          
+
+            return File(workStream, "application/pdf", strPDFFileName);
+
+        }
+
     }
+
 }

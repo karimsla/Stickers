@@ -89,49 +89,56 @@
                     <table class="table table-borderless table-data3">
                         <thead>
                             <tr>
-                                <th>Orders date</th>
                                 <th>Product </th>
+                                <th>Orders date</th>
+                                <th>Delivery date</th>
                                 <th>Product Quantity </th>
                                 <th>Name</th>
                                 <th>Phone</th>
                                 <th>Address</th>
                                 <th>Confirmed?</th>
-                                <th>Delivery date</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model.Reverse())
                             {
 
-                                <tr>
-                                    <td> @item.product.nameprod </td>
+                            <tr>
+                                <td> @item.product.nameprod </td>
 
-                                    <td>@item.datecmd.ToShortDateString()</td>
+                                <td>@item.datecmd.ToShortDateString()</td>
+                                <td>@item.dateliv</td>
+                                <td>@item.qteprod</td>
+                                <td>@item.name</td>
+                                <td> @item.phone</td>
+                                <td> @item.adresse</td>
 
-                                    <td>@item.qteprod</td>
-                                    <td>@item.name</td>
-                                    <td> @item.phone</td>
-                                    <td> @item.adresse</td>
+                                @if (item.isComfirmed == true)
+                                {
+                                    <td class="process">Confirmed!</td>
+                                }
+                                else
+                                {
+                                    <td>
 
-                                    @if (item.isComfirmed == true)
-                                    {
-                                        <td class="process">Confirmed!</td>
-                                    }
-                                    else
-                                    {
-                                        <td>
-
-                                            <button type="submit" class="open btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#exampleModal" data-id="@item.idcmd">
-                                                <i class="fa fa-dot-circle-o"></i> Not yet
-                                            </button>
+                                        <button type="submit" class="open btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#exampleModal" data-id="@item.idcmd">
+                                            <i class="fa fa-dot-circle-o"></i> Not yet
+                                        </button>
 
 
-                                        </td>
+                                    </td>
 
-                                    }
+                                }
+                                    <td>
+                                       @Html.ActionLink("Detail","CreatePdf", "Command",new { id = item.idcmd },null)
+                                       
+                                        
 
-                                    <td>@item.dateliv</td>
-                                </tr>
+                                    </td>
+
+
+                            </tr>
                             }
 
 
