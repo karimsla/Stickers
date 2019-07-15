@@ -256,13 +256,16 @@ namespace Stickers.Controllers
             return View(Products);
         }
 
-        // GET: Admin/Details/5
+        // GET: Products/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            IserviceProduct ip = new serviceProduct();
+            Product p = ip.GetById(id);
+            List<Command> xc = sc.GetMany(a => a.idprod == id).ToList();
+            int v = xc.Sum(w => w.qteprod);
+            ViewBag.quantite = v;
+            return View(p);
         }
-
-
 
 
 
@@ -271,44 +274,93 @@ namespace Stickers.Controllers
         {
             return View();
         }
+        protected bool verifyFiles(HttpPostedFileBase item)
+        {
+            bool flag = true;
+
+
+
+            if (item != null)
+            {
+                if (item.ContentLength > 0 && item.ContentLength < 5000000)
+                {
+
+
+                    if (!(Path.GetExtension(item.FileName).ToLower() == ".jpg" ||
+                        Path.GetExtension(item.FileName).ToLower() == ".png" ||
+                        Path.GetExtension(item.FileName).ToLower() == ".bmp" ||
+                        Path.GetExtension(item.FileName).ToLower() == ".jpeg"))
+                    {
+                        flag = false;
+                    }
+
+
+
+
+
+                }
+                else { flag = false; }
+
+            }
+
+
+
+
+
+            else { flag = false; }
+
+            return flag;
+        }
+
 
         // POST:Create product
+        // POST: Products/Create
         [HttpPost]
-        public ActionResult Create(Product prod, HttpPostedFileBase postedFile)
+        public ActionResult Create(Product prod, HttpPostedFileBase item, HttpPostedFileBase img1, HttpPostedFileBase img2, HttpPostedFileBase img3)
         {
             try
             {
-                if (postedFile != null)
+                //probléme dans le modelState du coup j'ai vérifier champ  par champ
+                if (prod.nameprod!="" && prod.price!=0 &&  verifyFiles(item) && verifyFiles(img1) && verifyFiles(img2) && verifyFiles(img3))// check if the model state is valid , and the file (image in the input is valid)
+
                 {
                     string path = Server.MapPath("/Content/stickerspic/");
                     if (!Directory.Exists(path))
                     {
                         Directory.CreateDirectory(path);
                     }
+                    item.SaveAs(path + Path.GetFileName(item.FileName));
+                    img1.SaveAs(path + Path.GetFileName(img1.FileName));
+                    img2.SaveAs(path + Path.GetFileName(img2.FileName));
+                    img3.SaveAs(path + Path.GetFileName(img3.FileName));
+                    ViewBag.Message = "Pictures uploaded successfully.";
 
-                    postedFile.SaveAs(path + Path.GetFileName(postedFile.FileName));
-                    ViewBag.Message = "Picture uploaded successfully.";
 
-
-                    prod.imgprod =  Path.GetFileName(postedFile.FileName);
+                    prod.imgprod = Path.GetFileName(item.FileName);
+                    prod.img1 = Path.GetFileName(img1.FileName);
+                    prod.img2 = Path.GetFileName(img2.FileName);
+                    prod.img3 = Path.GetFileName(img3.FileName);
                     // just call the service and it will do the work check service production for more informations
                     prod.imgprod = prod.imgprod;
+                    prod.img1 = prod.img1;
+                    prod.img2 = prod.img2;
+                    prod.img3 = prod.img3;
                     sp.add_product(prod);
-
-
-                    return RedirectToAction("IndexProducts");
+                }
+                else
+                {
+                    ViewBag.error = "files or input are invalid";
+                    return View();
                 }
 
-                sp.add_product(prod);
                 return RedirectToAction("IndexProducts");
-
             }
-            catch (NullReferenceException e)
+            catch
             {
-                return RedirectToAction("IndexProducts");
+                return View();
             }
-
         }
+
 
 
         // GET: Products/Edit/5
@@ -382,6 +434,19 @@ namespace Stickers.Controllers
             return View(sc.ListCommand());
 
         }
+
+
+
+        //Searching Command by name
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult ListCommand(String SearchString)
+        {
+            var Commands = sc.GetMany(p => p.name.Contains(SearchString));
+            return View(Commands);
+        }
+
+
 
         //Confirm command
         [HttpPost]
