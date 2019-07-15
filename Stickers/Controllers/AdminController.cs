@@ -435,6 +435,19 @@ namespace Stickers.Controllers
 
         }
 
+
+
+        //Searching Command by name
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult ListCommand(String SearchString)
+        {
+            var Commands = sc.GetMany(p => p.name.Contains(SearchString));
+            return View(Commands);
+        }
+
+
+
         //Confirm command
         [HttpPost]
         public ActionResult Confirmcommand(int id, DateTime datee)
