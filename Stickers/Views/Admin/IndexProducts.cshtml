@@ -104,7 +104,6 @@
 
                                 <th>Product Name</th>
                                 <th>Product Price</th>
-                                <th>Description</th>
                                 <th>Picture</th>
                                 <th>Availability</th>
                                 <th>Quantity</th>
@@ -121,7 +120,6 @@
                                     <td>
                                         <span class="block-email">@item.price</span>
                                     </td>
-                                    <td class="desc">@item.description</td>
                                     <td>
                                         <img  src="~/Content/stickerspic/@item.imgprod" class="zoom" style="width:100%;  height:auto; " />
                                     </td>
@@ -165,10 +163,12 @@
 
                                     <td>
                                         <div class="table-data-feature">
-
+                                            @Html.ActionLink(" Details", "Details", "Admin", new { id = item.idprod }, new { @class = "btn btn-outline-success" })
+                                            &nbsp;
                                             @Html.ActionLink(" Edit", "Edit", "Admin", new { id = item.idprod }, new { @class = "btn btn-outline-warning" })
+                                            &nbsp;
 
-                                           
+
                                             @Html.ActionLink(" Delete", "Delete", "Products", new { id = item.idprod }, new { @class = " btn btn-outline-danger" })
 
 

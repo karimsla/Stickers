@@ -141,6 +141,10 @@
     <Compile Include="Migrations\201907131444042_majdeleteconfirm.Designer.cs">
       <DependentUpon>201907131444042_majdeleteconfirm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907151334420_majimg.cs" />
+    <Compile Include="Migrations\201907151334420_majimg.Designer.cs">
+      <DependentUpon>201907151334420_majimg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -184,6 +188,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907131444042_majdeleteconfirm.resx">
       <DependentUpon>201907131444042_majdeleteconfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907151334420_majimg.resx">
+      <DependentUpon>201907151334420_majimg.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -61,11 +61,36 @@
                                     <label for="file-input" class=" form-control-label">Upload picture</label>
                                 </div>
                                 <div class="col-12 col-md-9">
-                                    <input type="file" id="file-input" name="postedFile" class="form-control-file">
+                                    <input type="file" id="file-input" name="item" class="form-control-file">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3">
+                                    <label for="file-input" class=" form-control-label">Upload picture</label>
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <input type="file" id="file-input" name="img1" class="form-control-file">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3">
+                                    <label for="file-input" class=" form-control-label">Upload picture</label>
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <input type="file" id="file-input" name="img2" class="form-control-file">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col col-md-3">
+                                    <label for="file-input" class=" form-control-label">Upload picture</label>
+                                </div>
+                                <div class="col-12 col-md-9">
+                                    <input type="file" id="file-input" name="img3" class="form-control-file">
                                 </div>
                             </div>
                             <div class="form-actions form-group">
                                 <button type="submit" class="btn btn-primary btn-sm">Add product</button>
+                                <span style="color:red">@ViewBag.error</span>
                                 @Html.ActionLink("Products", "IndexProducts", "Admin", new { @class = "btn btn-info glyphicon glyphicon-list-alt" })
 
                             </div>

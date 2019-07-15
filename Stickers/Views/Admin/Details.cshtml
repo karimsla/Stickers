@@ -1,0 +1,83 @@
+﻿@model Model.Product
+
+@{
+    Layout = "~/Views/Shared/templateback.cshtml";
+}
+
+
+<div class="section__content section__content--p30">
+    <div class="container-fluid">
+
+
+        <div class="row">
+            <div class="col-sm-8">
+                <!--Card-->
+
+
+
+                <div class="card card-cascade card-ecommerce narrower" style="width: 33rem;">
+
+                    <!--Card image-->
+                    <div class="view view-cascade overlay">
+                        <img class="card-img-top" src="~/Content/stickerspic/@Model.imgprod" alt="Card image with a picture of dance class.">
+                        <a>
+                            <div class="mask rgba-white-slight waves-effect waves-light"></div>
+                        </a>
+                    </div>
+                    <!--/.Card image-->
+                    <!--Card content-->
+                    <div class="card-body card-body-cascade text-center">
+                        <!--Category & Title-->
+
+                        <h4 class="card-title"><strong><a href="">@Model.nameprod</a></strong></h4>
+
+                        <!--Description-->
+                        <p class="card-text">
+                            <h6 class="pb-4 display-5">@Model.description</h6>
+                        </p>
+
+                        <!--Card footer-->
+                        <div class="card-footer" style="line-height:0.5">
+                            <span class="float-left">@Model.price TND</span>
+                            <span class="float-none">@Model.qteprod Disponible</span>
+                            <span class="float-right">
+                                @ViewBag.quantite   Sales
+                            </span>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+
+                    <!--/.Card content-->
+                  
+                </div>
+
+
+              
+
+
+            </div>
+            <!--/.Card-->
+            <div class="col-sm-4">
+
+
+                <img src="~/Content/stickerspic/@Model.img1" class="img-thumbnail" alt="Cinque Terre" width="200" height="200">
+
+                </br>
+
+
+                <img src="~/Content/stickerspic/@Model.img2" class="img-thumbnail" alt="Cinque Terre" width="200" height="200">
+
+                </br>
+
+
+                <img src="~/Content/stickerspic/@Model.img3" class="img-thumbnail" alt="Cinque Terre" width="200" height="200">
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</div>
