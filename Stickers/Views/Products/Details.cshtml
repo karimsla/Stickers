@@ -56,6 +56,23 @@
             </div>
         </div>
     </div>
+    <div class="form-row col-md-12" style="margin-top:50px;margin-bottom:50px">
+        @if (Model.img1 != null)
+        {<div class="form-group col-md-4">
+                <img src="~/Content/stickerspic/@Model.img1" class="zoom" style="width:300px;height:300px" />
+            </div>
+        }
+        @if (Model.img1 != null)
+        {<div class="form-group col-md-4">
+                <img src="~/Content/stickerspic/@Model.img2" class="zoom" style="width:300px;height:300px" />
+            </div>
+        }
+        @if (Model.img1 != null)
+        { <div class="form-group col-md-4">
+                <img src="~/Content/stickerspic/@Model.img3" class="zoom" style="width:300px;height:300px" />
+            </div>
+        }
+    </div>
 </div>
 
 
@@ -100,7 +117,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-5 col-form-label">Zip code</label>
                                 <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="code" placeholder="1234"  />
+                                    <input type="text" class="form-control" name="code" placeholder="1234" />
                                 </div>
                             </div>
 
@@ -192,3 +209,12 @@
         btn.closest('.number-spinner').find('input').val(newVal);
     });
 </script>
+
+
+<style>
+
+
+    .zoom:hover {
+        transform: scale(1.25); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+</style>
