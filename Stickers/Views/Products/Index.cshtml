@@ -35,10 +35,10 @@
 <div class="col-md-12">
     <br />
     <div class="awesome-project-content">
-    
-    @foreach (var item in Model)
-    {
-       
+
+        @foreach (var item in Model)
+        {
+
             <div class="col-md-4 col-sm-4 col-xs-12 ">
                 <a href="/Products/Details/@item.idprod">
                     <div class="single-awesome-project">
@@ -54,14 +54,38 @@
                         </div>
                     </div>
                 </a>
-                    </div>
-}
-    
+            </div>
+        }
+
     </div>
 
 </div>
+<div class="row text-center">
+    
+    @using (Html.BeginForm())
+    { Html.AntiForgeryToken();
 
+        for (int i = 0; i <= (int)ViewBag.pagenb; i++)
+        {
+            var j = i + 1;
+         
+        <button type="submit" name="btPage" class="pa" value="@j">@j</button>
+            }
+        
+    }
+</div>
 <style>
+ 
+    .pa{
+        background-color:white;
+        color:black;
+        border-color:gold;
+    }
+    .pa:hover
+    {
+      background-color:gold;
+      color:white;     
+    }
 
     .but {
         background-color: white;

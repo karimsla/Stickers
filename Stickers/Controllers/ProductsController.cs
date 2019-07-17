@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace Stickers.Controllers
 {
@@ -13,27 +14,50 @@ namespace Stickers.Controllers
     {
 
         serviceProduct sp = new serviceProduct();
-
+        static bool order = false;
         // GET: Products
         public ActionResult Index()
         {
             IserviceProduct ip = new serviceProduct();
             List<Product> lp = new List<Product>();
             lp = ip.listprod();
+            lp.Reverse();
 
+            ViewBag.pagenb = lp.Count/12;
             return View(lp);
         }
         [HttpPost]
-        public ActionResult Index(string search,string type)
-        {
+        public ActionResult Index(string search,string type,string btPage)
+        {//this method maymeshaa haad w manajemch nfasarha li yheb yefhemha nfahemhelou ki net9ablou
             IserviceProduct ip = new serviceProduct();
+            List<Product> lp=new List<Product>();
+            if (type != null)
+            {
+                string ch = search;//valeur à chercher
+                string ch1 = type;//type de trie
+                lp= ip.search_kw(search).Where(a => a.qteprod > 0).ToList();
+                if (!type.Equals("desc"))
+                {
+                    lp.Reverse();
+                    order = true;
+                }else
+                { order = false; }
+            }
+            else
+            { int page = Int32.Parse(btPage);
 
-            string ch = search;//valeur à chercher
-            string ch1 = type;//type de trie
-            List<Product> lp = ip.search_kw(search).Where(a => a.qteprod > 0).ToList() ;
-            if (type.Equals("desc"))
-                lp.Reverse();
-            
+                lp = ip.listprod();
+                if (order)
+                {
+                    lp.Reverse();
+                  lp=lp.Skip((page - 1) * 12).ToList();
+                }
+                else
+                {
+                    lp = lp.Skip((page - 1) * 12).ToList();
+                }
+            }
+            ViewBag.pagenb = ip.listprod().Count / 12;
             return View(lp);
         }
 
