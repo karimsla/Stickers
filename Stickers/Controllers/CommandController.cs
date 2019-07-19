@@ -52,12 +52,19 @@ namespace Stickers.Controllers
         [HttpPost]
         public ActionResult Command(Command cmd)
         {
+            bool stock = true;
+            bool error = true;
+            bool success = true;
+            ViewData.Clear();
 
             IserviceProduct ps = new serviceProduct();
             Product p=ps.GetById(cmd.idprod);
             if (p.qteprod < cmd.qteprod)
             {
                 ModelState.AddModelError("quantity not enough","not enough quantity in the stock");
+            
+                 stock = false;
+                return RedirectToAction("Details/" + cmd.idprod, "Products", new { stock = stock });
             }
 
             if (ModelState.IsValid)
@@ -66,11 +73,18 @@ namespace Stickers.Controllers
                 //if modelstate is valid then add_command check service command for more informations
                 IserviceCommand spc = new serviceCommand();
                 spc.add_commande(cmd);
+                success = false;
+                return RedirectToAction("Details/" + cmd.idprod, "Products", new {  success = success });
+            }
+            else
+            {
+               
+                error = false;
+                return RedirectToAction("Details/" + cmd.idprod, "Products", new {error = error });
             }
 
 
-
-            return RedirectToAction("Details/"+cmd.idprod,"Products");
+            
 
         }
 

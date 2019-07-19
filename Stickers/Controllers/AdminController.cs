@@ -11,6 +11,9 @@ using System.Linq;
 using System.Web;
 using Services.serviceClaim;
 using System.IO;
+using System.Text;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace Stickers.Controllers
 {
@@ -431,9 +434,56 @@ namespace Stickers.Controllers
         public ActionResult ListCommand()
         {
             //returnin the list of the commands
-            return View(sc.ListCommand());
+            List<Command> ls = sc.ListCommand().OrderBy(x=>x.isComfirmed==false).ToList();
+            return View(ls);
 
         }
+
+
+
+
+
+        public FileResult Commandpdf()
+        {
+            IserviceCommand spc = new serviceCommand();
+            List<Command> lscmd = new List<Command>();
+            lscmd = spc.GetMany(x => x.isComfirmed == false).ToList();
+            iservicePDF isp = new servicePDF();
+            MemoryStream workStream = new MemoryStream();
+            StringBuilder status = new StringBuilder("");
+            DateTime dTime = DateTime.Now;
+            //file name to be created   
+            string strPDFFileName = string.Format("not comfirmed orders" + dTime.ToShortDateString() + ".pdf");
+            Document doc = new Document();
+            doc.SetMargins(10f, 10f, 10f, 10f);
+            //Create PDF Table with 5 columns  
+            PdfPTable tableLayout = new PdfPTable(10);
+            doc.SetMargins(10f, 10f, 10f, 10f);
+            //Create PDF Table  
+
+            //file will created in this path  
+            string strAttachment = Path.Combine(Server.MapPath("../Content/stickerspic/"), strPDFFileName);
+
+
+            PdfWriter.GetInstance(doc, workStream).CloseStream = false;
+            doc.Open();
+
+            //Add Content to PDF   
+            doc.Add(isp.pdf_table(tableLayout, lscmd));
+
+            // Closing the document  
+            doc.Close();
+
+            byte[] byteInfo = workStream.ToArray();
+            workStream.Write(byteInfo, 0, byteInfo.Length);
+            workStream.Position = 0;
+
+
+            return File(workStream, "application/pdf", strPDFFileName);
+
+
+        }
+
 
 
 

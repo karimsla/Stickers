@@ -10,6 +10,7 @@ namespace Services
 {
     public interface iservicePDF
     {
+        PdfPTable pdf_table(PdfPTable tableLayout, List<Command> lscmd);
         PdfPTable Add_Content_To_PDF(PdfPTable tableLayout, Command cmd);
          void AddCellToBody(PdfPTable tableLayout, string cellText);
         void AddCellToHeader(PdfPTable tableLayout, string cellText);

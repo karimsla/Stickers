@@ -33,7 +33,7 @@
 
 
 
-        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+        @Html.PasswordFor(model => model.password,new { @class = "form-control", placeholder = "Password" })
         @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
 
 

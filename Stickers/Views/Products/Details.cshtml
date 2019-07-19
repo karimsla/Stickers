@@ -50,6 +50,23 @@
 
                 }
             </div>
+
+            <div class="single-well">
+                @if (ViewBag.stock!=null)
+                {
+                    <p>@ViewBag.stock</p>
+                }
+                @if (ViewBag.error != null)
+                {
+                    <p>@ViewBag.error</p>
+                }
+                @if (ViewBag.success != null)
+                {
+                    <p>@ViewBag.success</p>
+                }
+            </div>
+
+
             <br />
             <div class="floatright">
                 <button class="but" data-toggle="modal" data-target="#my_modal">Buy Product</button>

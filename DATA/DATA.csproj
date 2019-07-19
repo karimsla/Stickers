@@ -101,49 +101,9 @@
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
-    <Compile Include="Migrations\201906251853384_mg1.cs" />
-    <Compile Include="Migrations\201906251853384_mg1.Designer.cs">
-      <DependentUpon>201906251853384_mg1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906260149560_mg2.cs" />
-    <Compile Include="Migrations\201906260149560_mg2.Designer.cs">
-      <DependentUpon>201906260149560_mg2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906260228002_ak47.cs" />
-    <Compile Include="Migrations\201906260228002_ak47.Designer.cs">
-      <DependentUpon>201906260228002_ak47.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906261648326_scar2.cs" />
-    <Compile Include="Migrations\201906261648326_scar2.Designer.cs">
-      <DependentUpon>201906261648326_scar2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201906270035027_phamas.cs" />
-    <Compile Include="Migrations\201906270035027_phamas.Designer.cs">
-      <DependentUpon>201906270035027_phamas.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907021701583_ad1.cs" />
-    <Compile Include="Migrations\201907021701583_ad1.Designer.cs">
-      <DependentUpon>201907021701583_ad1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907041248486_seenattribute.cs" />
-    <Compile Include="Migrations\201907041248486_seenattribute.Designer.cs">
-      <DependentUpon>201907041248486_seenattribute.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907120113256_model annotation.cs" />
-    <Compile Include="Migrations\201907120113256_model annotation.Designer.cs">
-      <DependentUpon>201907120113256_model annotation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907131420389_majpassword.cs" />
-    <Compile Include="Migrations\201907131420389_majpassword.Designer.cs">
-      <DependentUpon>201907131420389_majpassword.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907131444042_majdeleteconfirm.cs" />
-    <Compile Include="Migrations\201907131444042_majdeleteconfirm.Designer.cs">
-      <DependentUpon>201907131444042_majdeleteconfirm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201907152356241_mmm.cs" />
-    <Compile Include="Migrations\201907152356241_mmm.Designer.cs">
-      <DependentUpon>201907152356241_mmm.cs</DependentUpon>
+    <Compile Include="Migrations\201907190045345_mg1.cs" />
+    <Compile Include="Migrations\201907190045345_mg1.Designer.cs">
+      <DependentUpon>201907190045345_mg1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -159,38 +119,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201906251853384_mg1.resx">
-      <DependentUpon>201906251853384_mg1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906260149560_mg2.resx">
-      <DependentUpon>201906260149560_mg2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906260228002_ak47.resx">
-      <DependentUpon>201906260228002_ak47.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906261648326_scar2.resx">
-      <DependentUpon>201906261648326_scar2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201906270035027_phamas.resx">
-      <DependentUpon>201906270035027_phamas.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907021701583_ad1.resx">
-      <DependentUpon>201907021701583_ad1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907041248486_seenattribute.resx">
-      <DependentUpon>201907041248486_seenattribute.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907120113256_model annotation.resx">
-      <DependentUpon>201907120113256_model annotation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907131420389_majpassword.resx">
-      <DependentUpon>201907131420389_majpassword.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907131444042_majdeleteconfirm.resx">
-      <DependentUpon>201907131444042_majdeleteconfirm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201907152356241_mmm.resx">
-      <DependentUpon>201907152356241_mmm.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201907190045345_mg1.resx">
+      <DependentUpon>201907190045345_mg1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

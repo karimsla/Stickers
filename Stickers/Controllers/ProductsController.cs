@@ -65,10 +65,23 @@ namespace Stickers.Controllers
       
 
         // GET: Products/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int id,bool? stock,bool? error,bool? success)
         {
             IserviceProduct ip = new serviceProduct();
             Product p = ip.GetById(id);
+            if (stock!=null && stock==false)
+            {
+                ViewBag.stock = "not enough quantity in the stock";
+            }
+            if (error!=null && error==false)
+            {
+                ViewBag.error = "be sure to check your informations";
+            }
+            if (success!=null && success==false)
+            {
+                ViewBag.success = "your order is registred you will be contacted for delivery informations";
+
+            }
             return View(p);
         }
 
