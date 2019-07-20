@@ -324,33 +324,39 @@ namespace Stickers.Controllers
             try
             {
                 //probléme dans le modelState du coup j'ai vérifier champ  par champ
+
                 if (prod.nameprod!="" && prod.price!=0 &&  verifyFiles(item) && verifyFiles(img1) && verifyFiles(img2) && verifyFiles(img3))// check if the model state is valid , and the file (image in the input is valid)
 
                 {
-                    string path = Server.MapPath("/Content/stickerspic/");
-                    if (!Directory.Exists(path))
-                    {
-                        Directory.CreateDirectory(path);
-                    }
+                    string path;
+                    string name;
                     if (item != null)
                     {
-                        item.SaveAs(path+prod.nameprod+"1"+ Path.GetFileName(item.FileName));
-                        prod.imgprod = Path.GetFileName(item.FileName).ToString();
+                        name = (DateTime.Now.Millisecond.ToString() + prod.nameprod + "1" + Path.GetExtension(item.FileName)).ToString();
+                        path = Path.Combine(Server.MapPath("/Content/stickerspic/"), name);
+                        item.SaveAs(path);
+                        prod.imgprod = name;
                     }
                     if (img1 != null)
                     {
-                        img1.SaveAs(path + prod.nameprod+"2"+ Path.GetFileName(img1.FileName));
-                        prod.img1 = Path.GetFileName(img1.FileName).ToString();
+                        name = (DateTime.Now.Millisecond.ToString() + prod.nameprod + "2" + Path.GetExtension(item.FileName)).ToString();
+                        path = Path.Combine(Server.MapPath("/Content/stickerspic/"), name);
+                        img1.SaveAs(path);
+                        prod.img1 = name;
                     }
                     if (img2 != null)
                     {
-                        img2.SaveAs(path + prod.nameprod +"3"+ Path.GetFileName(img2.FileName));
-                        prod.img2 = Path.GetFileName(img2.FileName).ToString();
+                        name = (DateTime.Now.Millisecond.ToString() + prod.nameprod + "3" + Path.GetExtension(item.FileName)).ToString();
+                        path = Path.Combine(Server.MapPath("/Content/stickerspic/"), name);
+                        img2.SaveAs(path);
+                        prod.img2 = name;
                     }
                     if (img3 != null)
                     {
-                        img3.SaveAs(path + prod.nameprod +"4"+ Path.GetFileName(img3.FileName));
-                        prod.img3 = Path.GetFileName(img3.FileName).ToString();
+                        name = (DateTime.Now.Millisecond.ToString() + prod.nameprod + "3" + Path.GetExtension(item.FileName)).ToString();
+                        path = Path.Combine(Server.MapPath("/Content/stickerspic/"), name);
+                        img3.SaveAs(path);
+                        prod.img3 = name;
                     }
                   
                    
@@ -377,6 +383,7 @@ namespace Stickers.Controllers
             }
             catch(Exception e)
             {
+                ViewBag.error = "exception:"+e.ToString();
                 return View();
             }
         }
