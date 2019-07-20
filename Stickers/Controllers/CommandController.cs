@@ -94,12 +94,16 @@ namespace Stickers.Controllers
         public ActionResult ValidateCommand(Command cmd, DateTime date)
         {
 
+            int total;
+            IserviceProduct spp = new serviceProduct();
+            total = (int)spp.GetById(cmd.idprod).price * cmd.qteprod + 5;
             //the admin will put the date of the delievery and the command will be validated
             cmd.dateliv = date;
             spc.validateCommande(cmd);
             IserviceMail sm = new serviceMail();
             sm.sendMail(cmd.email,"order from ri9 Tounsi have been reviewed",
-                "your order have been reviewed and it will be delievered "+date.ToString()+"<br>We will call you as soon as possible");
+                "your order have been reviewed and it will be delievered "+date.ToString()+"<br>We will call you as soon as possible.<br>" +
+                "products+shipping cost="+total.ToString());
 
             return View(cmd);
 

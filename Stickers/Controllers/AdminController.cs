@@ -310,7 +310,7 @@ namespace Stickers.Controllers
 
 
 
-            else { flag = false; }
+            
 
             return flag;
         }
@@ -332,22 +332,39 @@ namespace Stickers.Controllers
                     {
                         Directory.CreateDirectory(path);
                     }
-                    item.SaveAs(path + Path.GetFileName(item.FileName));
-                    img1.SaveAs(path + Path.GetFileName(img1.FileName));
-                    img2.SaveAs(path + Path.GetFileName(img2.FileName));
-                    img3.SaveAs(path + Path.GetFileName(img3.FileName));
+                    if (item != null)
+                    {
+                        item.SaveAs(path+prod.nameprod+"1"+ Path.GetFileName(item.FileName));
+                        prod.imgprod = Path.GetFileName(item.FileName).ToString();
+                    }
+                    if (img1 != null)
+                    {
+                        img1.SaveAs(path + prod.nameprod+"2"+ Path.GetFileName(img1.FileName));
+                        prod.img1 = Path.GetFileName(img1.FileName).ToString();
+                    }
+                    if (img2 != null)
+                    {
+                        img2.SaveAs(path + prod.nameprod +"3"+ Path.GetFileName(img2.FileName));
+                        prod.img2 = Path.GetFileName(img2.FileName).ToString();
+                    }
+                    if (img3 != null)
+                    {
+                        img3.SaveAs(path + prod.nameprod +"4"+ Path.GetFileName(img3.FileName));
+                        prod.img3 = Path.GetFileName(img3.FileName).ToString();
+                    }
+                  
+                   
+                  
+                  
                     ViewBag.Message = "Pictures uploaded successfully.";
 
 
-                    prod.imgprod = Path.GetFileName(item.FileName);
-                    prod.img1 = Path.GetFileName(img1.FileName);
-                    prod.img2 = Path.GetFileName(img2.FileName);
-                    prod.img3 = Path.GetFileName(img3.FileName);
+                   
+                   
+                   
+                  
                     // just call the service and it will do the work check service production for more informations
-                    prod.imgprod = prod.imgprod;
-                    prod.img1 = prod.img1;
-                    prod.img2 = prod.img2;
-                    prod.img3 = prod.img3;
+                 
                     sp.add_product(prod);
                 }
                 else
@@ -358,7 +375,7 @@ namespace Stickers.Controllers
 
                 return RedirectToAction("IndexProducts");
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }
