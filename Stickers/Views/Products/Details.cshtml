@@ -58,15 +58,15 @@
             <div class="single-well">
                 @if (ViewBag.stock!=null)
                 {
-                    <p>@ViewBag.stock</p>
+                    <h4 style="color:red;">@ViewBag.stock</h4>
                 }
                 @if (ViewBag.error != null)
                 {
-                    <p>@ViewBag.error</p>
+                    <h4 style="color:red;">@ViewBag.error</h4>
                 }
                 @if (ViewBag.success != null)
                 {
-                    <p>@ViewBag.success</p>
+                    <h5 style="color:green">@ViewBag.success</h5>
                 }
             </div>
 

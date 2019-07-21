@@ -14,6 +14,7 @@ using System.IO;
 using System.Text;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using System.Security.Cryptography;
 
 namespace Stickers.Controllers
 {
@@ -53,9 +54,14 @@ namespace Stickers.Controllers
                 }
                 if (ad.password != "" && !string.IsNullOrWhiteSpace(ad.password) && ad.password == confirmpassword)
                 {
-                    //for the password it s more tricky 
-                    //check if it s empty the check it s not white space and check if the two passord match
-                    _admin.password = ad.password;
+                //for the password it s more tricky 
+                //check if it s empty the check it s not white space and check if the two passord match
+
+                SHA256 hash = new SHA256CryptoServiceProvider();
+                Byte[] originalBytes = ASCIIEncoding.Default.GetBytes(ad.password);
+                Byte[] encodedBytes = hash.ComputeHash(originalBytes);
+                ad.password = BitConverter.ToString(encodedBytes);
+                _admin.password = ad.password;
 
                 }
                 else if (ad.password != "" && ad.password != confirmpassword)

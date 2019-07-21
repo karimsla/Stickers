@@ -260,3 +260,4 @@ paket-files/
 __pycache__/
 *.pyc
 /DATA/Migrations
+/Stickers/Content/stickerspic
