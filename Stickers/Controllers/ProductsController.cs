@@ -69,15 +69,15 @@ namespace Stickers.Controllers
         {
             IserviceProduct ip = new serviceProduct();
             Product p = ip.GetById(id);
-            if (stock!=null && stock==false)
+            if (stock!=null && stock==true)
             {
                 ViewBag.stock = "not enough quantity in the stock";
             }
-            if (error!=null && error==false)
+            if (error!=null && error==true)
             {
                 ViewBag.error = "be sure to check your informations";
             }
-            if (success!=null && success==false)
+            if (success!=null && success==true)
             {
                 ViewBag.success = "your order is registred you will be contacted for delivery informations";
 
