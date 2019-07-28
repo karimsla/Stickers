@@ -12,7 +12,7 @@ namespace Services
 {
    public class serviceProduct:servicePattern<Product>,IserviceProduct
     {
-
+         
         
             static IDatabaseFactory dbf = new DatabaseFactory();
             static IUnitOfWork uow = new UnitOfWork(dbf);

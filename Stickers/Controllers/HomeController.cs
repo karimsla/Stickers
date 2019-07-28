@@ -25,7 +25,7 @@ namespace Stickers.Controllers
 
         public PartialViewResult Products()
         {
-            IserviceProduct ip = new serviceProduct();
+            serviceProduct ip = new serviceProduct();
            
             List<Product> lp = new List<Product>();
             lp = ip.GetMany().Reverse().Where(a=>a.qteprod>0).Take(6).ToList();
