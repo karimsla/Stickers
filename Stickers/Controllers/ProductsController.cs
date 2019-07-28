@@ -200,6 +200,23 @@ namespace Stickers.Controllers
         // GET: Products/Delete/5
         public ActionResult Delete(int id)
         {
+           
+            Product p = sp.GetById(id);
+            Console.WriteLine("------------"+Path.Combine(Server.MapPath("/Content/stickerspic/"), p.imgprod));
+            System.IO.File.Delete(Server.MapPath("/Content/stickerspic/")+ p.imgprod);
+            Console.WriteLine(Path.Combine(Server.MapPath("/Content/stickerspic/"), p.imgprod));
+            if (p.img1!=null && p.img1 != "")
+            {
+                System.IO.File.Delete(Server.MapPath("/Content/stickerspic/") + p.img1);
+            }
+            if (p.img2 != null && p.img2 != "")
+            {
+                System.IO.File.Delete(Server.MapPath("/Content/stickerspic/") + p.img2);
+            }
+            if (p.img3 != null && p.img3 != "")
+            {
+                System.IO.File.Delete(Server.MapPath("/Content/stickerspic/") + p.img3);
+            }
             sp.deleteprod(id);
             return RedirectToAction("IndexProducts","Admin");
         }
