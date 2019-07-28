@@ -7,8 +7,8 @@ namespace Data.Infrastructure
 {
     public class UnitOfWork : IUnitOfWork
     {
-       
-         private DatabContext dataContext;
+
+        private DatabContext dataContext;
 
         IDatabaseFactory dbFactory;
         public UnitOfWork(IDatabaseFactory dbFactory)
