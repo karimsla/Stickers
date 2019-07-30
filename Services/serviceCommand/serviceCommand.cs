@@ -41,18 +41,18 @@ namespace Services
             return cmd.ToList();
         }
 
-        public void validateCommande(Command cmd)
+        public void validateCommande(int id,DateTime datee)
         {
             //validate command iscomfirmed =true and substract the qte of the command from the productS
             IserviceProduct spp = new serviceProduct();
-            Command _cmd = this.GetById(cmd.idcmd);
+            Command _cmd = this.GetById(id);
             Product prod=spp.GetById(_cmd.idprod);
 
-            _cmd.dateliv = cmd.dateliv;
+            _cmd.dateliv = datee;
             _cmd.isComfirmed = true;
             this.Update(_cmd);
             this.Commit();
-            prod.qteprod =prod.qteprod- cmd.qteprod;
+            prod.qteprod =prod.qteprod- _cmd.qteprod;
             spp.Update(prod);
             spp.Commit();
 

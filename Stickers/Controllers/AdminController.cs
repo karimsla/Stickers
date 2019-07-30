@@ -95,7 +95,7 @@ namespace Stickers.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult login(Admin ad, string ReturnUrl)
         {
-            IserviceAdmin spa = new serviceAdmin();
+           
             if (spa.authAdmin(ad.username, ad.password))//check serviceAdmin
             {
 
@@ -182,9 +182,9 @@ namespace Stickers.Controllers
             //atef is supposed to fix the template for this one 
             //the admin can see the list of claims ordred by date
             //the admin can delete a claim check the next action result
-            IserviceClaim spcl = new serviceClaim();
+           
             List<Claim> cl = new List<Claim>();
-            cl = spcl.GetAll().OrderBy(x => x.claimdate).ToList();
+            cl = scc.GetAll().OrderBy(x => x.claimdate).ToList();
             return View(cl);
         }
 
@@ -192,9 +192,9 @@ namespace Stickers.Controllers
         public ActionResult deleteClaim(int id)
         {
             //the admin can delete a claim
-            IserviceClaim spcl = new serviceClaim();
-            spcl.Delete(spcl.GetById(id));
-            spcl.Commit();
+          
+            scc.Delete(scc.GetById(id));
+            scc.Commit();
 
             return RedirectToAction("Claims");
         }
@@ -238,23 +238,6 @@ namespace Stickers.Controllers
         }
 
 
-        [CustomAuthorizeAttribute(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult DeleteProduct(int id)
-        {
-
-
-
-            Product s = new Product();
-
-            s = sp.GetById(id);
-
-
-            sp.Update(s);
-            sp.Commit();
-
-            return RedirectToAction("IndexProducts");
-        }
 
         //Searching product by name
         [CustomAuthorizeAttribute(Roles = "Admin")]
@@ -268,8 +251,8 @@ namespace Stickers.Controllers
         // GET: Products/Details/5
         public ActionResult Details(int id)
         {
-            IserviceProduct ip = new serviceProduct();
-            Product p = ip.GetById(id);
+         
+            Product p = sp.GetById(id);
             List<Command> xc = sc.GetMany(a => a.idprod == id).ToList();
             int v = xc.Sum(w => w.qteprod);
             ViewBag.quantite = v;
@@ -283,6 +266,7 @@ namespace Stickers.Controllers
         {
             return View();
         }
+
         protected bool verifyFiles(HttpPostedFileBase item)
         {
             bool flag = true;
@@ -475,9 +459,9 @@ namespace Stickers.Controllers
 
         public FileResult Commandpdf()
         {
-            IserviceCommand spc = new serviceCommand();
+            
             List<Command> lscmd = new List<Command>();
-            lscmd = spc.GetMany(x => x.isComfirmed == false).ToList();
+            lscmd = sc.GetMany(x => x.isComfirmed == false).ToList();
             iservicePDF isp = new servicePDF();
             MemoryStream workStream = new MemoryStream();
             StringBuilder status = new StringBuilder("");
@@ -529,24 +513,25 @@ namespace Stickers.Controllers
 
 
         //Confirm command
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         public ActionResult Confirmcommand(int id, DateTime datee)
         {
-            IserviceCommand spc = new serviceCommand();
+           
 
 
-            Command cmd = new Command();
-
-            cmd = sc.GetById(id);
-            //the admin will put the date of the delievery and the command will be validated
-            cmd.dateliv = datee;
-            spc.validateCommande(cmd);
+          
+          
+            sc.validateCommande(id,datee);
+            Command cmd = sc.GetById(id);
             IserviceMail sm = new serviceMail();
             sm.sendMail(cmd.email, "order from ri9 Tounsi have been reviewed",
                 "your order have been reviewed and it will be delievered " + datee.ToString() + "<br>We will call you as soon as possible");
 
             return RedirectToAction("ListCommand");
         }
+
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpGet]
         public ActionResult OrderThisWeek()
         {
@@ -556,7 +541,7 @@ namespace Stickers.Controllers
             return View(lc);
         }
 
-
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpGet]
         public ActionResult OrderThisMonth()
         {
@@ -568,6 +553,7 @@ namespace Stickers.Controllers
 
 
         //All claims
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpGet]
         public ActionResult AllClaims()
         {   //Update attribute seen=True
@@ -613,6 +599,7 @@ namespace Stickers.Controllers
             return View(productss);
         }
         //nos clients
+
         [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult Customers()
         {
