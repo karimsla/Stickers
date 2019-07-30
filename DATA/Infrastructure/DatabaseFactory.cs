@@ -13,6 +13,8 @@ namespace DATA.Infrastructure
 
         public DatabaseFactory()
         {
+          
+           
             dataContext = new DatabContext();
         }
 

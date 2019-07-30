@@ -10,7 +10,7 @@ namespace Services
 {
     public interface IserviceCommand:IservicePattern<Command>
     {
-        void validateCommande(Command cmd);
+        void validateCommande(int id,DateTime datee);
         void add_commande(Command cmd);
         List<Command> ListCommand();
     }
