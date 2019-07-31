@@ -45,15 +45,17 @@ namespace Services
         {
             //validate command iscomfirmed =true and substract the qte of the command from the productS
         
-            Command _cmd = this.GetById(id);
-          
+            Command _cmd = new Command();
+
+            _cmd = this.Get(x => x.idcmd == id);
 
             _cmd.dateliv = datee;
             _cmd.isComfirmed = true;
             this.Update(_cmd);
             this.Commit();
+          
             IserviceProduct spp = new serviceProduct();
-            Product prod = spp.GetById(_cmd.idprod);
+            Product prod = spp.Get(x => x.idprod == _cmd.idprod);
             prod.qteprod =prod.qteprod- _cmd.qteprod;
             spp.Update(prod);
             spp.Commit();

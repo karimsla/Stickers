@@ -141,7 +141,7 @@ namespace Stickers.Controllers
 
             //total earnings
             List<Command> xc = sc.GetMany(a => a.isComfirmed == true).ToList();
-            float v = xc.Sum(w => w.product.price);
+            float v = xc.Sum(w => w.product.price*w.qteprod);
             ViewBag.earnings = v;
 
 

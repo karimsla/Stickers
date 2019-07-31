@@ -90,15 +90,20 @@ namespace Stickers.Controllers
 
 
 
-  
 
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         public PartialViewResult Details(int id)
         {
             return PartialView("Details", spc.GetById(id));
         }
 
-
-
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult Delete(int id)
+        {
+            spc.Delete(x => x.idcmd == id);
+            spc.Commit();
+            return RedirectToAction("ListCommand","Admin");
+        }
 
         [CustomAuthorizeAttribute(Roles = "Admin")]
         public FileResult CreatePdf(int id)
