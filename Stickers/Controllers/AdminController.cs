@@ -523,11 +523,8 @@ namespace Stickers.Controllers
           
           
             sc.validateCommande(id,datee);
-            Command cmd = sc.GetById(id);
-            IserviceMail sm = new serviceMail();
-            sm.sendMail(cmd.email, "order from ri9 Tounsi have been reviewed",
-                "your order have been reviewed and it will be delievered " + datee.ToString() + "<br>We will call you as soon as possible");
-
+           
+         
             return RedirectToAction("ListCommand");
         }
 

@@ -44,19 +44,25 @@ namespace Services
         public void validateCommande(int id,DateTime datee)
         {
             //validate command iscomfirmed =true and substract the qte of the command from the productS
-            IserviceProduct spp = new serviceProduct();
+        
             Command _cmd = this.GetById(id);
-            Product prod=spp.GetById(_cmd.idprod);
+          
 
             _cmd.dateliv = datee;
             _cmd.isComfirmed = true;
             this.Update(_cmd);
             this.Commit();
+            IserviceProduct spp = new serviceProduct();
+            Product prod = spp.GetById(_cmd.idprod);
             prod.qteprod =prod.qteprod- _cmd.qteprod;
             spp.Update(prod);
             spp.Commit();
+            IserviceMail sm = new serviceMail();
+            sm.sendMail(_cmd.email, "order from ri9 Tounsi have been reviewed",
+                "your order have been reviewed and it will be delievered " + datee.ToString() + "<br>We will call you as soon as possible");
 
-            
+
+
         }
     }
 }
