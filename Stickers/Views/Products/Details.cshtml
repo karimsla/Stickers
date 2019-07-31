@@ -72,32 +72,34 @@
 
             </div>
 
- 
+
 
             <br />
-            <div class="floatright">
+            <div class="floatright" style="margin-bottom:100px">
                 <button class="but" data-toggle="modal" data-target="#my_modal">Buy Product</button>
             </div>
         </div>
-    </div>
-    <div class="form-row col-md-12" style="margin-top:50px;margin-bottom:50px">
-        @if (Model.img1 != null)
-        {<div class="form-group col-md-4">
-                <img src="~/Content/stickerspic/@Model.img1" class="zoom" style="width:300px;height:300px" />
-            </div>
-        }
-        @if (Model.img1 != null)
-        {<div class="form-group col-md-4">
-                <img src="~/Content/stickerspic/@Model.img2" class="zoom" style="width:300px;height:300px" />
-            </div>
-        }
-        @if (Model.img1 != null)
-        {<div class="form-group col-md-4">
-                <img src="~/Content/stickerspic/@Model.img3" class="zoom" style="width:300px;height:300px" />
-            </div>
-        }
+
     </div>
 </div>
+<br />
+<div class="form-row col-md-12" style="margin-top:50px;margin-bottom:50px">
+    <div class="form-group col-md-4">
+        <img src="~/Content/stickerspic/6.jpg" class="zoom" style="width:300px;height:300px" />
+    </div>
+
+    @if (Model.img1 != null)
+    {<div class="form-group col-md-4">
+            <img src="~/Content/stickerspic/@Model.img2" class="zoom" style="width:300px;height:300px" />
+        </div>
+    }
+    @if (Model.img1 != null)
+    {<div class="form-group col-md-4">
+            <img src="~/Content/stickerspic/@Model.img3" class="zoom" style="width:300px;height:300px" />
+        </div>
+    }
+</div>
+
 
 
 <div class="modal fade" id="my_modal" tabindex="-1" role="dialog" aria-labelledby="my_modal" aria-hidden="true">
