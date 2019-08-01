@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using Stickers.Security;
 
 namespace Stickers.Controllers
 {
@@ -65,6 +66,7 @@ namespace Stickers.Controllers
       
 
         // GET: Products/Details/5
+
         public ActionResult Details(int id,bool? stock,bool? error,bool? success)
         {
             IserviceProduct ip = new serviceProduct();
@@ -86,6 +88,7 @@ namespace Stickers.Controllers
         }
 
         // GET: Products/Create
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -133,6 +136,7 @@ namespace Stickers.Controllers
 
 
         // POST: Products/Create
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         public ActionResult Create(Product prod, HttpPostedFileBase item, HttpPostedFileBase img1, HttpPostedFileBase img2, HttpPostedFileBase img3)
         {
@@ -174,6 +178,7 @@ namespace Stickers.Controllers
         }
 
         // GET: Products/Edit/5
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             //request a product by id and returning the product model in the view
@@ -181,23 +186,10 @@ namespace Stickers.Controllers
         }
 
         // POST: Products/Edit/5
-        [HttpPost]
-        public ActionResult Edit(Product prod)
-        {
-            try
-            {
-                // just call the service and it will do the work check service production for more informations
-                sp.updateprod(prod);
-
-                return RedirectToAction("IndexProducts");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+      
 
         // GET: Products/Delete/5
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
            

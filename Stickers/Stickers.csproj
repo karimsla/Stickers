@@ -930,7 +930,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="stickerspictures\" />
-    <Folder Include="Views\DeleteMe\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

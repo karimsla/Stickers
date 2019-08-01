@@ -1,32 +1,38 @@
-﻿using Data.Infrastructure;
-using DATA.Infrastructure;
-using Infrastructure;
+﻿
+using DATA;
+
 using Model;
-using MyFinance.Data.Infrastructure;
-using Service;
+
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Services
 {
-    public class serviceCommand:servicePattern<Command>,IserviceCommand
+    public class serviceCommand:IserviceCommand
     {
 
        
-            static IDatabaseFactory dbf = new DatabaseFactory();
-            static IUnitOfWork uow = new UnitOfWork(dbf);
-            public serviceCommand() : base(uow)
+          
+            public serviceCommand() 
             {
 
             }
 
         public void add_commande(Command cmd)
         {
-            cmd.datecmd = DateTime.Now;
-            cmd.isComfirmed = false;
-            this.Add(cmd);
-            this.Commit();
+            try
+            {
+                cmd.datecmd = DateTime.Now;
+                cmd.isComfirmed = false;
+                this.Add(cmd);
+                this.Commit();
+            }catch(Exception e)
+            {
+
+            }
         }
 
         public List<Command> ListCommand()
@@ -44,19 +50,147 @@ namespace Services
         public void validateCommande(int id,DateTime datee)
         {
             //validate command iscomfirmed =true and substract the qte of the command from the productS
-            IserviceProduct spp = new serviceProduct();
-            Command _cmd = GetMany(a=>a.idcmd==id).Single();
-            Product prod=spp.GetById(_cmd.idprod);
+        
+            Command _cmd = new Command();
+
+            _cmd = this.Get(x => x.idcmd == id);
 
             _cmd.dateliv = datee;
             _cmd.isComfirmed = true;
             this.Update(_cmd);
             this.Commit();
+          
+            IserviceProduct spp = new serviceProduct();
+            Product prod = spp.Get(x => x.idprod == _cmd.idprod);
             prod.qteprod =prod.qteprod- _cmd.qteprod;
             spp.Update(prod);
             spp.Commit();
+            IserviceMail sm = new serviceMail();
+            sm.sendMail(_cmd.email, "order from ri9 Tounsi have been reviewed",
+                "your order have been reviewed and it will be delievered " + datee.ToShortDateString() + "<br>We will call you as soon as possible");
 
-            
+
+
         }
+
+
+
+
+        /**************************************************************/
+        public void Add(Command entity)
+        {
+            using (var ctx = new DatabContext())
+            {
+                ctx.Commands.Add(entity);
+                ctx.SaveChanges();
+            }
+        }
+
+        public void Commit()
+        {
+            using (var ctx = new DatabContext())
+            {
+                ctx.SaveChanges();
+            }
+        }
+
+        public void Delete(Expression<Func<Command, bool>> where)
+        {
+            IEnumerable<Command> objects;
+            using (var ctx = new DatabContext())
+            {
+               objects= ctx.Commands.Where(where).AsEnumerable();
+                foreach (Command obj in objects)
+                    ctx.Commands.Remove(obj);
+                ctx.SaveChanges();
+
+            }
+        }
+
+        public void Delete(Command entity)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                ctx.Commands.Remove(entity);
+                ctx.SaveChanges();
+
+            }
+        }
+
+        public Command Get(Expression<Func<Command, bool>> where)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                return ctx.Commands.Where(where).FirstOrDefault();
+
+            }
+        }
+
+        public IEnumerable<Command> GetAll()
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                return ctx.Commands.AsEnumerable();
+
+            }
+        }
+
+        public Command GetById(long id)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                return ctx.Commands.Find(id);
+
+            }
+        }
+
+        public Command GetById(string id)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                return ctx.Commands.Find(id);
+
+            }
+        }
+
+        public IEnumerable<Command> GetMany(Expression<Func<Command, bool>> where = null, Expression<Func<Command, bool>> orderBy = null)
+        {
+            IQueryable<Command> Query;
+            using (var ctx = new DatabContext())
+            {
+
+               Query= ctx.Commands.Include(x=>x.product);
+                if (where != null)
+                {
+                    Query = Query.Where(where);
+                }
+                if (orderBy != null)
+                {
+                    Query = Query.OrderBy(orderBy);
+                }
+                return Query.ToList();
+
+            }
+        }
+
+
+        public void Update(Command entity)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                ctx.Commands.Attach(entity);
+                ctx.Entry(entity).State = EntityState.Modified;
+                ctx.SaveChanges();
+
+            }
+        }
+
+
     }
 }
