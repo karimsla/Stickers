@@ -1,24 +1,28 @@
-﻿using Data.Infrastructure;
-using DATA.Infrastructure;
-using Infrastructure;
+﻿
+using DATA;
+
 using Model;
-using MyFinance.Data.Infrastructure;
-using Service;
+
 using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace Services.serviceAdmin
 {
-    public class serviceAdmin : servicePattern<Admin>,IserviceAdmin
+    public class serviceAdmin : IserviceAdmin
 
     {
-        static IDatabaseFactory dbf = new DatabaseFactory();
-        static IUnitOfWork uow = new UnitOfWork(dbf);
-        public serviceAdmin() : base(uow)
+     
+        public serviceAdmin() 
         {
 
         }
+
+       
 
         public bool authAdmin(string username, string password)
         {
@@ -29,6 +33,8 @@ namespace Services.serviceAdmin
             return this.Get(x => x.username == username && x.password == password) != null;
 
         }
+
+       
 
         public void modifyAccount(Admin _admin)
         {
@@ -54,5 +60,117 @@ namespace Services.serviceAdmin
         }
 
 
+        public void Add(Admin entity)
+        {
+            using (var ctx = new DatabContext())
+            {
+                ctx.Admins.Add(entity);
+                ctx.SaveChanges();
+            }
+        }
+
+        public void Commit()
+        {
+            using (var ctx = new DatabContext())
+            {
+                ctx.SaveChanges();
+            }
+        }
+
+        public void Delete(Expression<Func<Admin, bool>> where)
+        {
+            using (var ctx = new DatabContext())
+            {
+                IEnumerable<Admin> objects = ctx.Admins.Where(where).AsEnumerable();
+                foreach (Admin obj in objects)
+                    ctx.Admins.Remove(obj);
+                ctx.SaveChanges();
+
+            }
+        }
+
+        public void Delete(Admin entity)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                ctx.Admins.Remove(entity);
+                ctx.SaveChanges();
+
+            }
+        }
+
+        public Admin Get(Expression<Func<Admin, bool>> where)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                return ctx.Admins.Where(where).FirstOrDefault();
+                
+
+            }
+        }
+
+        public IEnumerable<Admin> GetAll()
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                return ctx.Admins;
+
+            }
+        }
+
+        public Admin GetById(long id)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                return ctx.Admins.Find(id);
+
+            }
+        }
+
+        public Admin GetById(string id)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                return ctx.Admins.Find(id);
+
+            }
+        }
+
+        public IEnumerable<Admin> GetMany(Expression<Func<Admin, bool>> where = null, Expression<Func<Admin, bool>> orderBy = null)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                IQueryable<Admin> Query = ctx.Admins;
+                if (where != null)
+                {
+                    Query = Query.Where(where);
+                }
+                if (orderBy != null)
+                {
+                    Query = Query.OrderBy(orderBy);
+                }
+                return Query;
+
+            }
+        }
+
+
+        public void Update(Admin entity)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                ctx.Admins.Attach(entity);
+                ctx.Entry(entity).State = EntityState.Modified;
+                ctx.SaveChanges();
+
+            }
+        }
     }
 }

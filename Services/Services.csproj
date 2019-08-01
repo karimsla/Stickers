@@ -112,8 +112,6 @@
     <Compile Include="serviceCommand\serviceCommand.cs" />
     <Compile Include="serviceMails\IserviceMail.cs" />
     <Compile Include="serviceMails\serviceMail.cs" />
-    <Compile Include="servicePattern\IservicePattern.cs" />
-    <Compile Include="servicePattern\servicePattern.cs" />
     <Compile Include="servicePDF\iservicePDF.cs" />
     <Compile Include="servicePDF\servicePDF.cs" />
     <Compile Include="serviceProducts\IserviceProduct.cs" />

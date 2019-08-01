@@ -1,22 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using Data.Infrastructure;
-using DATA.Infrastructure;
-using Infrastructure;
+using System.Linq.Expressions;
+
+using DATA;
+
 using Model;
-using MyFinance.Data.Infrastructure;
-using Service;
+
 
 
 namespace Services
 {
-   public class serviceProduct:servicePattern<Product>,IserviceProduct
+   public class serviceProduct:IserviceProduct
     {
          
         
-            static IDatabaseFactory dbf = new DatabaseFactory();
-            static IUnitOfWork uow = new UnitOfWork(dbf);
-            public serviceProduct() : base(uow)
+          
+            public serviceProduct() 
             {
 
             }
@@ -38,7 +39,7 @@ namespace Services
             return this.GetMany(x => x.qteprod > 0).OrderBy(s=>s.cmd==null?s.qteprod:s.cmd.Count()).ToList();
         }
 
-        public List<Product> listprodadmin()
+       public List<Product> listprodadmin()
         {
             return this.GetAll().OrderByDescending(s => s.qteprod).ToList();
 
@@ -61,11 +62,126 @@ namespace Services
             return _product;
         }
 
+        /*********************************************************************************/
 
 
-        public void updateprod(Product prod)
+
+        public void Add(Product entity)
         {
-            
+            using (var ctx = new DatabContext())
+            {
+                ctx.Products.Add(entity);
+                ctx.SaveChanges();
+
+            }
         }
+
+        public void Commit()
+        {
+            using (var ctx = new DatabContext())
+            {
+                ctx.SaveChanges();
+                ctx.Dispose();
+            }
+        }
+
+        public void Delete(Expression<Func<Product, bool>> where)
+        {
+            IEnumerable<Product> objects;
+            using (var ctx = new DatabContext())
+            {
+                objects = ctx.Products.Where(where).AsEnumerable();
+                foreach (Product obj in objects)
+                    ctx.Products.Remove(obj);
+                ctx.SaveChanges();
+
+            }
+        }
+
+        public void Delete(Product entity)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                ctx.Products.Remove(entity);
+                ctx.SaveChanges();
+
+            }
+        }
+
+        public Product Get(Expression<Func<Product, bool>> where)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                return ctx.Products.Where(where).FirstOrDefault();
+
+
+            }
+        }
+
+        public IEnumerable<Product> GetAll()
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                return ctx.Products.ToList();
+
+            }
+        }
+
+        public Product GetById(long id)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                return ctx.Products.Find(id);
+
+            }
+        }
+
+        public Product GetById(string id)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                return ctx.Products.Find(id);
+
+            }
+        }
+
+        public IEnumerable<Product> GetMany(Expression<Func<Product, bool>> where = null, Expression<Func<Product, bool>> orderBy = null)
+        {
+            IQueryable<Product> Query;
+            using (var ctx = new DatabContext())
+            {
+
+               Query = ctx.Products.Include(x=>x.cmd);
+                if (where != null)
+                {
+                    Query = Query.Where(where);
+                }
+                if (orderBy != null)
+                {
+                    Query = Query.OrderBy(orderBy);
+                }
+                return Query.ToList();
+
+            }
+        }
+
+
+        public void Update(Product entity)
+        {
+            using (var ctx = new DatabContext())
+            {
+
+                ctx.Products.Attach(entity);
+                ctx.Entry(entity).State = EntityState.Modified;
+                ctx.SaveChanges();
+
+            }
+        }
+
     }
 }

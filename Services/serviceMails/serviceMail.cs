@@ -15,20 +15,21 @@ namespace Services
 
             try
             {
-                string sendermail = "ri9tounsii @gmail.com";
-                string senderpassword = "ri9tounsi123";
+                string sendermail = "ri9tounsii@gmail.com";
+                string senderpassword = "Saber1999";
                 SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
                 client.EnableSsl = true;
                 client.Timeout = 1000000;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
-                MailMessage mailMessage = new MailMessage();//sendermail, spu.GetById(id).mail, "verify your mail", "http://localhost:8080/User/verifymail/?id=" + id + "&key=" + key);
+                MailMessage mailMessage = new MailMessage();
 
-                mailMessage.To.Add(mails);
+                mailMessage.To.Add(new MailAddress(mails));
 
-                mailMessage.From = new MailAddress("Ri9Tounsi");
+                mailMessage.From = new MailAddress("ri9tounsii@gmail.com");
 
                 mailMessage.Body = body;
+                mailMessage.Subject = obj;
 
                 client.Credentials = new NetworkCredential(sendermail, senderpassword);
 
@@ -39,7 +40,7 @@ namespace Services
                 client.Send(mailMessage);
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
 
             }
