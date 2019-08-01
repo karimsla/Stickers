@@ -111,7 +111,7 @@ namespace Services
         {
             using (var ctx = new DatabContext())
             {
-
+                
                 ctx.Commands.Remove(entity);
                 ctx.SaveChanges();
 

@@ -24,227 +24,246 @@
 {
     <div class="alert alert-success" role="alert">@ViewBag.success</div>
 }
-<div class="form-row col-md-12" style="margin-top:50px;margin-bottom:50px">
-    <div class="form-group col-md-6">
-        <img src="~/Content/stickerspic/@Model.imgprod" style="width:660px;height:500px" />
-    </div>
-    <br /><br />
-    <div class="col-md-6 col-sm-6 col-xs-12">
-        <div class="well-middle">
-            <center>
+    <div class="form-row col-md-12" style="margin-top:50px;margin-bottom:50px">
+        <div class="form-group col-md-6">
+            <img src="~/Content/stickerspic/@Model.imgprod" style="width:660px;height:500px" />
+        </div>
+        <br /><br />
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="well-middle">
+                <center>
+                    <div class="single-well">
+                        <h3 style="color:goldenrod"><b>@Model.nameprod</b></h3>
+
+                    </div>
+                </center>
+                <br />
                 <div class="single-well">
-                    <h3 style="color:goldenrod"><b>@Model.nameprod</b></h3>
-
-                </div>
-            </center>
-            <br />
-            <div class="single-well">
-                <h4 class="sec-head">Description</h4>
-                <p>
-                    @Model.description
-                </p>
-
-            </div>
-
-            <div class="single-well">
-                <h4 class="sec-head">Price</h4>
-                <p>
-                    @Model.price Dt
-                </p>
-
-            </div>
-
-            <div class="single-well">
-                @if (Model.qteprod > 0)
-                {<h4 class="sec-head" style="color:forestgreen">Product In Stock</h4>
+                    <h4 class="sec-head">Description</h4>
                     <p>
-                        @Model.qteprod
+                        @Model.description
                     </p>
-                }
-                else
-                {<h4 class="sec-head" style="color:red">Product Unavailable</h4>
+
+                </div>
+
+                <div class="single-well">
+                    <h4 class="sec-head">Price</h4>
+                    <p>
+                        @Model.price Dt
+                    </p>
+
+                </div>
+
+                <div class="single-well">
+                    @if (Model.qteprod > 0)
+                    {<h4 class="sec-head" style="color:forestgreen">Product In Stock</h4>
+                        <p>
+                            @Model.qteprod
+                        </p>
+                    }
+                    else
+                    {<h4 class="sec-head" style="color:red">Product Unavailable</h4>
 
 
-                }
+                    }
+                </div>
+                <div class="single-well">
+                    NB:shipping cost 5 TND<span style="color:red;">*</span>
+
+                </div>
+
+
+
+                <br />
+                <div class="floatright" style="margin-bottom:100px">
+                    <button class="but" data-toggle="modal" data-target="#my_modal">Buy Product</button>
+                </div>
             </div>
-            <div class="single-well">
-                NB:shipping cost 5 TND<span style="color:red;">*</span>
 
-            </div>
-
-
-
-            <br />
-            <div class="floatright" style="margin-bottom:100px">
-                <button class="but" data-toggle="modal" data-target="#my_modal">Buy Product</button>
-            </div>
         </div>
-
+        <br />
+        <div class="col-md-12 col-sm-12 col-xs-12 ">
+            @if (Model.img1 != null && !Model.img1.Equals(""))
+            {
+                <div class="form-group col-md-4">
+                    <img src="~/Content/stickerspic/@Model.img1" class="zoom" style="width:300px;height:300px" />
+                </div>
+            }
+            @if (Model.img1 != null && !Model.img1.Equals(""))
+            {<div class="form-group col-md-4">
+                    <img src="~/Content/stickerspic/@Model.img2" class="zoom" style="width:300px;height:300px" />
+                </div>
+            }
+            @if (Model.img1 != null && !Model.img1.Equals(""))
+            {<div class="form-group col-md-4">
+                    <img src="~/Content/stickerspic/@Model.img3" class="zoom" style="width:300px;height:300px" />
+                </div>
+            }
+        </div>
     </div>
-</div>
-<br />
-<div class="form-row col-md-12" style="margin-top:50px;margin-bottom:50px">
-    <div class="form-group col-md-4">
-        <img src="~/Content/stickerspic/6.jpg" class="zoom" style="width:300px;height:300px" />
-    </div>
+        <br />
+        @*<div class="form-row col-md-12" style="margin-top:50px;margin-bottom:50px">
+            <div class="form-group col-md-4">
+                <img src="~/Content/stickerspic/6.jpg" class="zoom" style="width:300px;height:300px" />
+            </div>
 
-    @if (Model.img1 != null)
-    {<div class="form-group col-md-4">
-            <img src="~/Content/stickerspic/@Model.img2" class="zoom" style="width:300px;height:300px" />
-        </div>
-    }
-    @if (Model.img1 != null)
-    {<div class="form-group col-md-4">
-            <img src="~/Content/stickerspic/@Model.img3" class="zoom" style="width:300px;height:300px" />
-        </div>
-    }
-</div>
-
+            @if (Model.img1 != null)
+            {<div class="form-group col-md-4">
+                    <img src="~/Content/stickerspic/@Model.img2" class="zoom" style="width:300px;height:300px" />
+                </div>
+            }
+            @if (Model.img1 != null)
+            {<div class="form-group col-md-4">
+                    <img src="~/Content/stickerspic/@Model.img3" class="zoom" style="width:300px;height:300px" />
+                </div>
+            }
+        </div>*@
 
 
-<div class="modal fade" id="my_modal" tabindex="-1" role="dialog" aria-labelledby="my_modal" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="card">
-                    <div class="card-header">
-                        <h6 style="color:gold">
-                            <b>
-                                Make an order
-                            </b>
-                        </h6>
-                    </div>
-                    <hr />
-                    <div class="card-body">
 
-                        @using (Html.BeginForm("Command", "Command"))
-                        {
-                            @Html.AntiForgeryToken()
-
-                            <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Name</label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="name" placeholder="">
-                                </div>
+        <div class="modal fade" id="my_modal" tabindex="-1" role="dialog" aria-labelledby="my_modal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 style="color:gold">
+                                    <b>
+                                        Make an order
+                                    </b>
+                                </h6>
                             </div>
+                            <hr />
+                            <div class="card-body">
 
-                            <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Adress</label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="adresse" placeholder="25 rue habib bourghuiba tunis..." />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">City</label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="gov" placeholder="Tunis..." />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Zip code</label>
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" name="code" placeholder="1234" />
-                                </div>
-                            </div>
+                                @using (Html.BeginForm("Command", "Command"))
+                                {
+                                    @Html.AntiForgeryToken()
 
-                            <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Phone number</label>
-                                <div class="col-sm-7">
-                                    <input type="number" class="form-control" name="phone" placeholder="" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Phone number 2</label>
-                                <div class="col-sm-7">
-                                    <input type="number" class="form-control" name="phone2" placeholder="" />
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">E-mail</label>
-                                <div class="col-sm-7">
-                                    <input type="email" class="form-control" name="email" placeholder="example@ex.com..." />
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-5 col-form-label">Quantity</label>
-                                <div class="col-sm-7">
-                                    <div class="input-group number-spinner">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-                                        </span>
-                                        <input type="text" class="form-control text-center" name="qteprod" value="1">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-                                        </span>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Name</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" name="name" placeholder="">
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="single-well">
-                                NB:shipping cost 5 TND<span style="color:red;">*</span>
 
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Adress</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" name="adresse" placeholder="25 rue habib bourghuiba tunis..." />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">City</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" name="gov" placeholder="Tunis..." />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Zip code</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control" name="code" placeholder="1234" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Phone number</label>
+                                        <div class="col-sm-7">
+                                            <input type="number" class="form-control" name="phone" placeholder="" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Phone number 2</label>
+                                        <div class="col-sm-7">
+                                            <input type="number" class="form-control" name="phone2" placeholder="" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">E-mail</label>
+                                        <div class="col-sm-7">
+                                            <input type="email" class="form-control" name="email" placeholder="example@ex.com..." />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-5 col-form-label">Quantity</label>
+                                        <div class="col-sm-7">
+                                            <div class="input-group number-spinner">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
+                                                </span>
+                                                <input type="text" class="form-control text-center" name="qteprod" value="1">
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="single-well">
+                                        NB:shipping cost 5 TND<span style="color:red;">*</span>
+
+                                    </div>
+                                    <input hidden="hidden" value="@Model.idprod" name="idprod" />
+                                    <div class="modal-footer d-flex justify-content-center">
+                                        <button class="but" type="submit">Order</button>
+                                    </div>
+                                }
                             </div>
-                            <input hidden="hidden" value="@Model.idprod" name="idprod" />
-                            <div class="modal-footer d-flex justify-content-center">
-                                <button class="but" type="submit">Order</button>
-                            </div>
-                        }
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<style>
+        <style>
 
-    .but {
-        background-color: white;
-        color: black;
-        border: 2px solid goldenrod;
-        padding: 5px 15px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 20px;
-        -webkit-transition-duration: 0.4s; /* Safari */
-        transition-duration: 0.4s;
-    }
-
-        .but:hover {
-            background-color: goldenrod; /* Green */
-            color: white;
-            border-radius: 10px 10px 10px 10px;
-        }
-</style>
-
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-<script>
-    $(document).on('click', '.number-spinner button', function () {
-        var btn = $(this),
-            oldValue = btn.closest('.number-spinner').find('input').val().trim(),
-            newVal = 0;
-
-        if (btn.attr('data-dir') == 'up') {
-            newVal = parseInt(oldValue) + 1;
-        } else {
-            if (oldValue > 1) {
-                newVal = parseInt(oldValue) - 1;
-            } else {
-                newVal = 1;
+            .but {
+                background-color: white;
+                color: black;
+                border: 2px solid goldenrod;
+                padding: 5px 15px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 20px;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
             }
-        }
-        btn.closest('.number-spinner').find('input').val(newVal);
-    });
-</script>
+
+                .but:hover {
+                    background-color: goldenrod; /* Green */
+                    color: white;
+                    border-radius: 10px 10px 10px 10px;
+                }
+        </style>
+
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+        <script>
+            $(document).on('click', '.number-spinner button', function () {
+                var btn = $(this),
+                    oldValue = btn.closest('.number-spinner').find('input').val().trim(),
+                    newVal = 0;
+
+                if (btn.attr('data-dir') == 'up') {
+                    newVal = parseInt(oldValue) + 1;
+                } else {
+                    if (oldValue > 1) {
+                        newVal = parseInt(oldValue) - 1;
+                    } else {
+                        newVal = 1;
+                    }
+                }
+                btn.closest('.number-spinner').find('input').val(newVal);
+            });
+        </script>
 
 
-<style>
+        <style>
 
 
-    .zoom:hover {
-        transform: scale(1.25); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-    }
-</style>
+            .zoom:hover {
+                transform: scale(1.25); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+            }
+        </style>
