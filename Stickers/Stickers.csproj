@@ -958,6 +958,9 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\DATA\DATA.csproj">
       <Project>{f3582766-881c-437b-9e1f-3bed0f3b2c40}</Project>
       <Name>DATA</Name>
@@ -967,12 +970,9 @@
       <Name>Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">
-      <Project>{E8056DA2-72D8-4DCF-96FD-106800BE1F59}</Project>
+      <Project>{e8056da2-72d8-4dcf-96fd-106800be1f59}</Project>
       <Name>Services</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

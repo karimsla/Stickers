@@ -45,7 +45,7 @@ namespace Services
         {
             //validate command iscomfirmed =true and substract the qte of the command from the productS
             IserviceProduct spp = new serviceProduct();
-            Command _cmd = this.GetById(id);
+            Command _cmd = GetMany(a=>a.idcmd==id).Single();
             Product prod=spp.GetById(_cmd.idprod);
 
             _cmd.dateliv = datee;
