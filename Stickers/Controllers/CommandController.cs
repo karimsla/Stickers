@@ -100,8 +100,9 @@ namespace Stickers.Controllers
         [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
-            spc.Delete(x => x.idcmd == id);
-            spc.Commit();
+            Command cmd = spc.GetById(id);
+            spc.Delete(cmd);
+         
             return RedirectToAction("ListCommand","Admin");
         }
 

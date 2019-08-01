@@ -100,10 +100,14 @@ namespace Services
             using (var ctx = new DatabContext())
             {
                objects= ctx.Commands.Where(where).AsEnumerable();
-                foreach (Command obj in objects)
-                    ctx.Commands.Remove(obj);
-                ctx.SaveChanges();
 
+                
+                    ctx.Commands.RemoveRange(objects);
+                   
+                   
+                
+                    ctx.SaveChanges();
+                
             }
         }
 
@@ -111,7 +115,7 @@ namespace Services
         {
             using (var ctx = new DatabContext())
             {
-                
+                ctx.Commands.Attach(entity);
                 ctx.Commands.Remove(entity);
                 ctx.SaveChanges();
 

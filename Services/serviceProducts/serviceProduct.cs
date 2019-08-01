@@ -25,13 +25,13 @@ namespace Services
         public void add_product(Product prod)
         {
             this.Add(prod);
-            this.Commit();
+            
         }
 
         public void deleteprod(int id)
         {
             this.Delete(this.GetById(id));
-            this.Commit();
+        
         }
 
         public List<Product> listprod()
@@ -81,7 +81,6 @@ namespace Services
             using (var ctx = new DatabContext())
             {
                 ctx.SaveChanges();
-                ctx.Dispose();
             }
         }
 
