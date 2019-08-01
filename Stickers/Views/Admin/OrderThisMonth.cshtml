@@ -44,39 +44,43 @@
 
 
 
-<div class="table-data__tool">
-    <div class="table-data__tool-left">
-        <div class="row form-group">
-            <div class="col col-md-12">
-                <div class="input-group">
-                    <div class="input-group-btn">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-search"></i> Search
-                        </button>
-                    </div>
-                    @Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "Search by product name" })
 
+@using (Html.BeginForm())
+{
+    <div class="table-data__tool">
+        <div class="table-data__tool-left">
+            <div class="row form-group">
+                <div class="col col-md-12">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-search"></i> Search
+                            </button>
+                        </div>
+                        @Html.TextBox("SearchString", null, new { @class = "form-control", @placeholder = "Search by order by name" })
+
+                    </div>
                 </div>
+
+
+
+
+
             </div>
 
+        </div>
+        <div class="table-data__tool-right">
+            @Html.ActionLink("All orders", "ListCommand", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
+
+            @Html.ActionLink("Orders this week", "OrderThisWeek", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
 
 
-
+            @Html.ActionLink("Orders this Month", "OrderThisMonth", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
+            @Html.ActionLink("Not comfirmed orders", "Commandpdf", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
 
         </div>
-
     </div>
-    <div class="table-data__tool-right">
-        @Html.ActionLink("All orders", "ListCommand", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
-
-        @Html.ActionLink("Orders this week", "OrderThisWeek", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
-
-
-        @Html.ActionLink("Orders this Month", "OrderThisMonth", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
-
-    </div>
-</div>
-
+}
 
 
 <div class="section__content section__content--p30">
@@ -89,23 +93,26 @@
                     <table class="table table-borderless table-data3">
                         <thead>
                             <tr>
-                                <th>Orders date</th>
                                 <th>Product </th>
+                                <th>Orders date</th>
+                                <th>Delivery date</th>
                                 <th>Product Quantity </th>
                                 <th>Name</th>
                                 <th>Phone</th>
                                 <th>Address</th>
                                 <th>Confirmed?</th>
-                                <th>Delivery date</th>
+
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.Reverse())
                             {
 
                                 <tr>
+                                    <td> @item.product.nameprod </td>
+
                                     <td>@item.datecmd.ToShortDateString()</td>
-                                    <td>@item.product.nameprod</td>
+                                    <td>@item.dateliv</td>
                                     <td>@item.qteprod</td>
                                     <td>@item.name</td>
                                     <td> @item.phone</td>
@@ -119,7 +126,7 @@
                                     {
                                         <td>
 
-                                            <button type="submit" class="open btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#exampleModal" data-id="@item.idprod">
+                                            <button type="submit" class="open btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="#exampleModal" data-id="@item.idcmd">
                                                 <i class="fa fa-dot-circle-o"></i> Not yet
                                             </button>
 
@@ -127,8 +134,17 @@
                                         </td>
 
                                     }
+                                    <td>
+                                        @Html.ActionLink("Detail", "CreatePdf", "Command", new { id = item.idcmd }, null)
 
-                                    <td>@item.dateliv</td>
+
+
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Delete","Command",new {  id=item.idcmd })"><i class="far fa-trash-alt"></i></a>
+                                    </td>
+
+
                                 </tr>
                             }
 
@@ -140,6 +156,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 <script src="https://code.jquery.com/jquery.min.js"></script>
 

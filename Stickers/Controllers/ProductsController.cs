@@ -177,31 +177,9 @@ namespace Stickers.Controllers
             }
         }
 
-        // GET: Products/Edit/5
-        [CustomAuthorizeAttribute(Roles = "Admin")]
-        public ActionResult Edit(int id)
-        {
-            //request a product by id and returning the product model in the view
-            return View(sp.GetById(id));
-        }
+    
 
-        // POST: Products/Edit/5
-        [CustomAuthorizeAttribute(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult Edit(Product prod)
-        {
-            try
-            {
-                // just call the service and it will do the work check service production for more informations
-                sp.updateprod(prod);
-
-                return RedirectToAction("IndexProducts");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+   
 
         // GET: Products/Delete/5
         [CustomAuthorizeAttribute(Roles = "Admin")]
