@@ -35,12 +35,12 @@ namespace Services
             }
         }
 
-        public List<Command> ListCommand()
+        public IEnumerable<Command> ListCommand()
         {
             IserviceProduct spp = new serviceProduct();
-            var cmd=this.GetMany().OrderBy(d=>d.datecmd).ToList();
+            var cmd=this.GetMany().OrderBy(d=>d.dateliv==null);
           
-            return cmd.ToList();
+            return cmd;
         }
 
         public void validateCommande(int id,DateTime datee)

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Model.Command>
+﻿@model IPagedList<Model.Command>
 
 @{
     ViewBag.Title = "ListCommand";
@@ -6,6 +6,8 @@
 }
 
 
+@using PagedList
+@using PagedList.Mvc
 
 
 <div class="modal fade" id="exampleModal" tabindex="2" role="dialog" aria-labelledby="exampleModalLabelaaa" style="display: none;" aria-hidden="true">
@@ -104,6 +106,8 @@
                                 <th>Phone</th>
                                 <th>Address</th>
                                 <th>Confirmed?</th>
+                                <th>Detail</th>
+                                <th>delete</th>
 
                             </tr>
                         </thead>
@@ -159,21 +163,32 @@
 
 
                 </div><!-- END DATA TABLE-->
+                @*<ul class="pagination justify-content-center">
+                        @for (int i = 0; i <= ViewBag.total; i++)
+                        {
+                            var j = i + 1;
+
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("ListCommand","Admin",new { pagenb=j })">@j</a>
+                            </li>
+
+                        }
+                    </ul>*@
 
 
-
-
-                <ul class="pagination justify-content-center">
-                    @for (int i = 0; i <= ViewBag.total; i++)
-                    {
-                        var j = i + 1;
-
-                        <li class="page-item">
-                            <a class="page-link" href="@Url.Action("ListCommand","Admin",new { pagenb=j })">@j</a>
-                        </li>
-
-                    }
-                </ul>
+                @Html.PagedListPager(Model,i=>Url.Action("ListCommand","Admin",new { pagenb=i }),
+               
+               new PagedListRenderOptions {
+        FunctionToTransformEachPageLink = (liTag, aTag) =>
+        {
+            aTag.Attributes.Add("class", "page-link");
+            liTag.InnerHtml = aTag.ToString();
+            return liTag;
+        },
+        LiElementClasses = new[] { "page-item" },
+        UlElementClasses = new[] { "pagination justify-content-center" } }
+               
+               )
 
 
             </div>

@@ -15,6 +15,7 @@ using System.Text;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Security.Cryptography;
+using PagedList;
 
 namespace Stickers.Controllers
 {
@@ -451,21 +452,18 @@ namespace Stickers.Controllers
         [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult ListCommand(int? pagenb)
         {
-            IEnumerable<Command> ls = sc.GetMany().OrderBy(x => x.isComfirmed==false);
 
-            ViewBag.total = ls.Count()/10;
-
-         
-            var currentPage = pagenb != null ? (int)pagenb : 1;
-
-          
-
-          
-             ls.Skip((currentPage - 1)*10).ToList();
+            var currentPage = pagenb != null || pagenb==0 ? (int)pagenb : 1;
 
             
-       
-            return View(ls.Take(10));
+
+            // IEnumerable<Command> ls = sc.ListCommand().Skip((currentPage - 1) * 10);
+
+            IEnumerable<Command> ls = sc.ListCommand();
+
+
+
+            return View(ls.ToList().ToPagedList(currentPage ,10));
 
         }
 
