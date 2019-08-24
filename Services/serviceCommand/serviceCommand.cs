@@ -39,11 +39,7 @@ namespace Services
         {
             IserviceProduct spp = new serviceProduct();
             var cmd=this.GetMany().OrderBy(d=>d.datecmd).ToList();
-            foreach(Command i in cmd)
-            {
-                if(i.product==null)
-                i.product = spp.GetById(i.idprod);
-            }
+          
             return cmd.ToList();
         }
 
@@ -127,7 +123,7 @@ namespace Services
             using (var ctx = new DatabContext())
             {
 
-                return ctx.Commands.Where(where).FirstOrDefault();
+                return ctx.Commands.Where(where).Include(x=>x.product).FirstOrDefault();
 
             }
         }
@@ -137,7 +133,7 @@ namespace Services
             using (var ctx = new DatabContext())
             {
 
-                return ctx.Commands.AsEnumerable();
+                return ctx.Commands.Include(x => x.product).AsEnumerable();
 
             }
         }

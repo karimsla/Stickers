@@ -247,7 +247,7 @@ namespace Stickers.Controllers
             var Products = sp.GetMany(p => p.nameprod.Contains(SearchString));
             return View(Products);
         }
-
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         // GET: Products/Details/5
         public ActionResult Details(int id)
         {
@@ -260,7 +260,7 @@ namespace Stickers.Controllers
         }
 
 
-
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         // GET: Products/Create
         public ActionResult Create()
         {
@@ -308,6 +308,7 @@ namespace Stickers.Controllers
 
         // POST:Create product
         // POST: Products/Create
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         public ActionResult Create(Product prod, HttpPostedFileBase item, HttpPostedFileBase img1, HttpPostedFileBase img2, HttpPostedFileBase img3)
         {
@@ -381,6 +382,7 @@ namespace Stickers.Controllers
 
 
         // GET: Products/Edit/5
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             //request a product by id and returning the product model in the view
@@ -391,6 +393,7 @@ namespace Stickers.Controllers
         }
 
         // POST: Products/Edit/5
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         [HttpPost]
         public ActionResult Edit(Product prod, HttpPostedFileBase postedFile)
         {
@@ -436,6 +439,7 @@ namespace Stickers.Controllers
 
 
         [HttpGet]
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         public JsonResult Description(int id)
         {
             Product pr = sp.GetById(id);
@@ -444,19 +448,31 @@ namespace Stickers.Controllers
         }
         //-------------------------------Commandes----------------------------------------
 
-
-        public ActionResult ListCommand()
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult ListCommand(int? pagenb)
         {
-            //returnin the list of the commands
-            List<Command> ls = sc.ListCommand().OrderBy(x=>x.isComfirmed==false).ToList();
-            return View(ls);
+            IEnumerable<Command> ls = sc.GetMany().OrderBy(x => x.isComfirmed==false);
+
+            ViewBag.total = ls.Count()/10;
+
+         
+            var currentPage = pagenb != null ? (int)pagenb : 1;
+
+          
+
+          
+             ls.Skip((currentPage - 1)*10).ToList();
+
+            
+       
+            return View(ls.Take(10));
 
         }
 
 
 
 
-
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         public FileResult Commandpdf()
         {
             

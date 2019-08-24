@@ -11,7 +11,10 @@
 <div class="modal fade" id="exampleModal" tabindex="2" role="dialog" aria-labelledby="exampleModalLabelaaa" style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header"><h5 class="modal-title" id="exampleModalLabel"> would you like to confirm this order? Choose the delivery date</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> would you like to confirm this order? Choose the delivery date</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
             <div class="modal-body">
                 <br />
                 @using (Html.BeginForm("Confirmcommand", "Admin"))
@@ -83,30 +86,30 @@
 }
 
 
-    <div class="section__content section__content--p30">
-        <div class="container-fluid">
+<div class="section__content section__content--p30">
+    <div class="container-fluid">
 
-            <div class="row m-t-30">
-                <div class="col-md-12">
-                    <!-- DATA TABLE-->
-                    <div class="table-responsive m-b-40">
-                        <table class="table table-borderless table-data3">
-                            <thead>
-                                <tr>
-                                    <th>Product </th>
-                                    <th>Orders date</th>
-                                    <th>Delivery date</th>
-                                    <th>Product Quantity </th>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                    <th>Confirmed?</th>
+        <div class="row m-t-30">
+            <div class="col-md-12">
+                <!-- DATA TABLE-->
+                <div class="table-responsive m-b-40">
+                    <table class="table table-borderless table-data3">
+                        <thead>
+                            <tr>
+                                <th>Product </th>
+                                <th>Orders date</th>
+                                <th>Delivery date</th>
+                                <th>Product Quantity </th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Confirmed?</th>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.Reverse())
-                                {
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Reverse())
+                            {
 
                                 <tr>
                                     <td> @item.product.nameprod </td>
@@ -135,41 +138,66 @@
 
                                     }
                                     <td>
-                                        @Html.ActionLink("Detail", "CreatePdf", "Command", new { id = item.idcmd }, null)
+                                        @Html.ActionLink("Detail", "CommandDetail", "Admin", new { id = item.idcmd }, null)
 
 
 
                                     </td>
                                     <td>
-                                        <a href="@Url.Action("Delete","Command",new {  id=item.idcmd })"><i class="far fa-trash-alt"></i></a>
+                                        <a href="@Url.Action("Delete", "Command", new { id = item.idcmd })"><i class="far fa-trash-alt"></i></a>
                                     </td>
 
 
                                 </tr>
-                                }
+                            }
 
 
-                            </tbody>
-                        </table>
-                    </div><!-- END DATA TABLE-->
-                </div>
+
+
+                        </tbody>
+                    </table>
+
+
+                </div><!-- END DATA TABLE-->
+
+
+
+
+                <ul class="pagination justify-content-center">
+                    @for (int i = 0; i <= ViewBag.total; i++)
+                    {
+                        var j = i + 1;
+
+                        <li class="page-item">
+                            <a class="page-link" href="@Url.Action("ListCommand","Admin",new { pagenb=j })">@j</a>
+                        </li>
+
+                    }
+                </ul>
+
+
             </div>
+
+
+
+
         </div>
     </div>
+</div>
 
 
 
 
-    <script src="https://code.jquery.com/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery.min.js"></script>
 
-    <script type="text/javascript">
-        $(document).on("click", ".open", function () {
-            var eventId = $(this).data('id');
-            $('#id').val(eventId);
-            $("#exampleModal").show()
+<script type="text/javascript">
+    $(document).on("click", ".open", function () {
+        var eventId = $(this).data('id');
+        $('#id').val(eventId);
+        $("#exampleModal").show()
 
-        });
+    });
 
 
 
-    </script>
+</script>

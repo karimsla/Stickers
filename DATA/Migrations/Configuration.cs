@@ -1,3 +1,4 @@
+
 namespace DATA.Migrations
 {
     using Model;
@@ -14,7 +15,7 @@ namespace DATA.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-         
+
         }
 
         protected override void Seed(DATA.DatabContext context)
