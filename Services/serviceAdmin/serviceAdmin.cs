@@ -10,6 +10,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web.Security;
+
 
 namespace Services.serviceAdmin
 {
@@ -30,7 +32,19 @@ namespace Services.serviceAdmin
             Byte[] originalBytes = ASCIIEncoding.Default.GetBytes(password);
             Byte[] encodedBytes = hash.ComputeHash(originalBytes);
             password = BitConverter.ToString(encodedBytes);
-            return this.Get(x => x.username == username && x.password == password) != null;
+            Admin _ad = this.Get(x => x.username == username && x.password == password);
+
+            if (_ad != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+
 
         }
 
@@ -143,10 +157,11 @@ namespace Services.serviceAdmin
 
         public IEnumerable<Admin> GetMany(Expression<Func<Admin, bool>> where = null, Expression<Func<Admin, bool>> orderBy = null)
         {
+            IQueryable<Admin> Query;
             using (var ctx = new DatabContext())
             {
 
-                IQueryable<Admin> Query = ctx.Admins;
+                Query = ctx.Admins;
                 if (where != null)
                 {
                     Query = Query.Where(where);
@@ -155,7 +170,7 @@ namespace Services.serviceAdmin
                 {
                     Query = Query.OrderBy(orderBy);
                 }
-                return Query;
+                return Query.ToList();
 
             }
         }

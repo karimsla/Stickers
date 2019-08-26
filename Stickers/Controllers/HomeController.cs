@@ -11,6 +11,10 @@ namespace Stickers.Controllers
 {
     public class HomeController : Controller
     {
+        public ActionResult Unauthorized()
+        {
+            return View();
+        }
         public PartialViewResult Home()
         {
             //

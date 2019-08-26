@@ -26,17 +26,25 @@ namespace Stickers.Controllers
         serviceCommand sc = new serviceCommand();
         serviceClaim scc = new serviceClaim();
         IserviceAdmin spa = new serviceAdmin();
-        [CustomAuthorizeAttribute(Roles = "Admin")]
+        [CustomAuthorizeAttribute(Roles = "Admin,User")]
         [HttpGet]
         public ActionResult editProfile()
         {
             //this is the get method
             //it will put the current connected user in the admin object
             Admin ad = spa.Get(x => x.username == User.Identity.Name);
-            return View(ad);
+            if (ad.type == "Admin")
+            {
+                return View(ad);
+            }
+            else
+            {
+                return View("editProfile2", ad);
+            }
+            
         }
 
-        [CustomAuthorizeAttribute(Roles = "Admin")]
+        [CustomAuthorizeAttribute(Roles = "Admin,User")]
         [HttpPost]
         public ActionResult editProfile(Admin ad, string confirmpassword)
         {
@@ -101,9 +109,20 @@ namespace Stickers.Controllers
             {
 
                 FormsAuthentication.SetAuthCookie(ad.username, true);//store user mail in cookies 
-           
 
-                return RedirectToAction("index");
+                if (spa.Get(x=>x.username==ad.username).type=="Admin")
+                {
+                    
+                    return RedirectToAction("index");
+
+                }
+                else if(spa.Get(x => x.username == ad.username).type == "User")
+                {
+                    return RedirectToAction("ListCommand2");
+
+                }
+
+
             }
 
 
@@ -121,6 +140,47 @@ namespace Stickers.Controllers
 
 
             return RedirectToAction("login");
+        }
+
+
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult ListAdmin()
+        {//only super admin can view list admins and manage admins(edit,delete)
+
+            List<Admin> _admin = new List<Admin>();
+            _admin = spa.GetMany(x => x.type=="User").ToList();//get you all lines in the table admin without the super admin
+            ViewData.Model = _admin;
+
+            return View();
+        }
+        [HttpGet]
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult AddAdmin()
+        {
+            return View();
+        }
+        [HttpPost]
+        [CustomAuthorizeAttribute(Roles = "Admin")]
+        public ActionResult AddAdmin(Admin ad, string pass)
+        {
+            if (pass != ad.password)
+            {
+                ModelState.AddModelError("error", "passwords does not match");
+                return View();
+            }
+            else
+            {
+                ad.type = "User";
+                SHA256 hash = new SHA256CryptoServiceProvider();
+                Byte[] originalBytes = ASCIIEncoding.Default.GetBytes(ad.password);
+                Byte[] encodedBytes = hash.ComputeHash(originalBytes);
+                ad.password = BitConverter.ToString(encodedBytes);
+                spa.Add(ad);
+                spa.Commit();
+                return RedirectToAction("ListAdmin");
+            }
+
+           
         }
 
 
@@ -248,6 +308,7 @@ namespace Stickers.Controllers
             var Products = sp.GetMany(p => p.nameprod.Contains(SearchString));
             return View(Products);
         }
+
         [CustomAuthorizeAttribute(Roles = "Admin")]
         // GET: Products/Details/5
         public ActionResult Details(int id)
@@ -468,9 +529,81 @@ namespace Stickers.Controllers
         }
 
 
-
-
+        //Searching Command by name
         [CustomAuthorizeAttribute(Roles = "Admin")]
+        [HttpPost]
+        public ActionResult ListCommand(String kw, int? pagenb)
+        {
+
+            var currentPage = pagenb != null || pagenb == 0 ? (int)pagenb : 1;
+
+
+
+            // IEnumerable<Command> ls = sc.ListCommand().Skip((currentPage - 1) * 10);
+
+            IEnumerable<Command> ls = sc.GetMany(x => x.gov == kw || x.product.nameprod == kw || x.name.Contains(kw) || x.phone == kw || x.phone2 == kw || x.email == kw || x.adresse == kw);
+
+            ViewBag.kw = kw;
+
+            return View(ls.ToList().ToPagedList(currentPage, 10));
+
+        }
+
+
+        public ActionResult CommandDetail(int id)
+        {
+
+
+            return View(sc.GetById(id));
+        }
+
+
+
+        [CustomAuthorizeAttribute(Roles = "Admin,User")]
+        public ActionResult ListCommand2(int? pagenb)
+        {
+
+            var currentPage = pagenb != null || pagenb == 0 ? (int)pagenb : 1;
+
+
+
+            // IEnumerable<Command> ls = sc.ListCommand().Skip((currentPage - 1) * 10);
+
+            IEnumerable<Command> ls = sc.ListCommand();
+
+
+
+            return View(ls.ToList().ToPagedList(currentPage, 10));
+
+        }
+
+
+
+        //Searching Command by name
+        [CustomAuthorizeAttribute(Roles = "Admin,User")]
+        [HttpPost]
+        public ActionResult ListCommand2(String kw, int? pagenb)
+        {
+
+            var currentPage = pagenb != null || pagenb == 0 ? (int)pagenb : 1;
+
+
+
+            // IEnumerable<Command> ls = sc.ListCommand().Skip((currentPage - 1) * 10);
+
+            IEnumerable<Command> ls = sc.GetMany(x => x.gov == kw || x.product.nameprod == kw || x.name.Contains(kw) || x.phone == kw || x.phone2 == kw || x.email == kw || x.adresse == kw);
+
+            ViewBag.kw = kw;
+
+            return View(ls.ToList().ToPagedList(currentPage, 10));
+
+        }
+
+
+
+
+
+        [CustomAuthorizeAttribute(Roles = "Admin,User")]
         public FileResult Commandpdf()
         {
             
@@ -515,19 +648,10 @@ namespace Stickers.Controllers
 
 
 
-        //Searching Command by name
-        [CustomAuthorizeAttribute(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult ListCommand(String SearchString)
-        {
-            var Commands = sc.GetMany(p => p.name.Contains(SearchString));
-            return View(Commands);
-        }
-
 
 
         //Confirm command
-        [CustomAuthorizeAttribute(Roles = "Admin")]
+        [CustomAuthorizeAttribute(Roles = "Admin,User")]
         [HttpPost]
         public ActionResult Confirmcommand(int id, DateTime datee)
         {
@@ -626,14 +750,80 @@ namespace Stickers.Controllers
 
         //---------------------------------------------------------------------------------
 
-   
+
         // GET: Admin/Delete/5
+        [CustomAuthorizeAttribute(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
-            return View();
+            spa.Delete(spa.GetById(id));
+            spa.Commit();
+            return RedirectToAction("ListAdmin") ;
         }
 
 
+        [CustomAuthorizeAttribute(Roles = "Admin,User")]
+        [HttpPost]
+        public ActionResult editProfile2(Admin ad, string confirmpassword)
+        {
+
+            //we will get the admin from the data base to attach it
+            Admin _admin = spa.GetById(ad.idAdmin);
+            if (_admin.email != ad.email && !string.IsNullOrEmpty(ad.email) && !string.IsNullOrWhiteSpace(ad.email))
+            {
+                //check if the email is not null , empty or white space and the change it
+                _admin.email = ad.email;
+            }
+            if (_admin.username != ad.username && !string.IsNullOrEmpty(ad.username) && !string.IsNullOrWhiteSpace(ad.username))
+            {
+                //check if the username isn't null , emtpy or white space and then change it
+                _admin.username = ad.username;
+            }
+            if (ad.password != "" && !string.IsNullOrWhiteSpace(ad.password) && ad.password == confirmpassword)
+            {
+                //for the password it s more tricky 
+                //check if it s empty the check it s not white space and check if the two passord match
+
+                SHA256 hash = new SHA256CryptoServiceProvider();
+                Byte[] originalBytes = ASCIIEncoding.Default.GetBytes(ad.password);
+                Byte[] encodedBytes = hash.ComputeHash(originalBytes);
+                ad.password = BitConverter.ToString(encodedBytes);
+                _admin.password = ad.password;
+
+            }
+            else if (ad.password != "" && ad.password != confirmpassword)
+            {
+                //if the two password doesn't math return the same view with error msg
+                ViewBag.error = "password doesn't math";
+                return View();
+            }
+            //now update and commit
+
+
+            spa.Update(_admin);
+            spa.Commit();
+
+            ViewBag.success = "Profile updated";
+            return View();
+
+
+
+        }
+
+
+        [CustomAuthorizeAttribute(Roles = "Admin,User")]
+        [HttpPost]
+        public ActionResult Confirmcommand2(int id, DateTime datee)
+        {
+
+
+
+
+
+            sc.validateCommande(id, datee);
+
+
+            return RedirectToAction("ListCommand2");
+        }
 
     }
 }

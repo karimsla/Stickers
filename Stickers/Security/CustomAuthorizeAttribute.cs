@@ -35,9 +35,9 @@ namespace Stickers.Security
             string userid = user.Identity.Name;
             Admin _admin = spa.Get(x=>x.username==userid);
 
+            user.IsInRole(_admin.type);
 
-
-            if (_admin != null)
+            if (_admin != null && Roles.Contains(_admin.type))
             {
                 authorize = true;
             }
@@ -68,6 +68,12 @@ namespace Stickers.Security
                  RouteValueDictionary(new { controller = "Admin", action = "login" }));
             }
             // filterContext.Result = new HttpUnauthorizedResult();
+           
+            else 
+            {
+                filterContext.Result = new RedirectToRouteResult(new
+                 RouteValueDictionary(new { controller = "Home", action = "Unauthorized" }));
+            }
         }
 
 

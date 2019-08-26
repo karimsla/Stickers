@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "ListCommand";
-    Layout = "~/Views/Shared/templateback.cshtml";
+    Layout = "~/Views/Shared/templateback 2.cshtml";
 }
 
 
@@ -19,7 +19,7 @@
             </div>
             <div class="modal-body">
                 <br />
-                @using (Html.BeginForm("Confirmcommand", "Admin"))
+                @using (Html.BeginForm("Confirmcommand2", "Admin"))
                 {@Html.AntiForgeryToken()
 
                 <div class="form-row justify-content-center">
@@ -75,12 +75,9 @@
 
         </div>
         <div class="table-data__tool-right">
-            @Html.ActionLink("All orders", "ListCommand", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
+            @Html.ActionLink("All orders", "ListCommand2", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
 
-            @Html.ActionLink("Orders this week", "OrderThisWeek", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
-
-
-            @Html.ActionLink("Orders this Month", "OrderThisMonth", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
+       
             @Html.ActionLink("Not comfirmed orders", "Commandpdf", "Admin", new { @class = "btn btn-warning glyphicon glyphicon-plus-sign" })
 
         </div>
@@ -176,9 +173,10 @@
                     </ul>*@
 
 
-                @Html.PagedListPager(Model,i=>Url.Action("ListCommand","Admin",new { pagenb=i, kw=ViewBag.kw }),
-               
-               new PagedListRenderOptions {
+                @Html.PagedListPager(Model, i => Url.Action("ListCommand", "Admin", new { pagenb = i, kw = ViewBag.kw }),
+
+               new PagedListRenderOptions
+                    {
         FunctionToTransformEachPageLink = (liTag, aTag) =>
         {
             aTag.Attributes.Add("class", "page-link");
@@ -186,8 +184,9 @@
             return liTag;
         },
         LiElementClasses = new[] { "page-item" },
-        UlElementClasses = new[] { "pagination justify-content-center" } }
-               
+        UlElementClasses = new[] { "pagination justify-content-center" }
+                    }
+
                )
 
 

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Model.Admin>
+
+@{
+    ViewBag.Title = "ListAdmin";
+    Layout = "~/Views/Shared/templateback.cshtml";
+}
+
+
+
+<p>
+    @Html.ActionLink("Create New", "AddAdmin","Admin",new { @class="btn cur-p btn-outline-primary"})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.username)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.password)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.type)
+    </td>
+    <td>
+
+        @Html.ActionLink("Delete", "Delete", new { id = item.idAdmin }, new { @class = "btn cur-p btn-outline-danger" })
+    </td>
+</tr>
+}
+
+</table>

@@ -38,7 +38,7 @@ namespace Services
         public IEnumerable<Command> ListCommand()
         {
             IserviceProduct spp = new serviceProduct();
-            var cmd=this.GetMany().OrderBy(d=>d.dateliv==null);
+            var cmd=this.GetMany().OrderBy(d=>d.isComfirmed==false).Reverse();
           
             return cmd;
         }
@@ -143,7 +143,7 @@ namespace Services
             using (var ctx = new DatabContext())
             {
 
-                return ctx.Commands.Find(id);
+                return ctx.Commands.Include(x=>x.product).Where(w=>w.idcmd==id).FirstOrDefault();
 
             }
         }
