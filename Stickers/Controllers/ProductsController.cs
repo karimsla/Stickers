@@ -77,7 +77,7 @@ namespace Stickers.Controllers
             }
             if (error!=null && error==true)
             {
-                ViewBag.error = "be sure to check your informations";
+                ViewBag.error = "be sure to check your informations all fields are required";
             }
             if (success!=null && success==true)
             {

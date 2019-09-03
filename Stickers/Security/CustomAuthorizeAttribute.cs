@@ -35,7 +35,7 @@ namespace Stickers.Security
             string userid = user.Identity.Name;
             Admin _admin = spa.Get(x=>x.username==userid);
 
-            user.IsInRole(_admin.type);
+            
 
             if (_admin != null && Roles.Contains(_admin.type))
             {

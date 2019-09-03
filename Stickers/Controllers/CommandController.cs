@@ -56,6 +56,10 @@ namespace Stickers.Controllers
             bool error = false;
             bool success = false;
             ViewData.Clear();
+            if (cmd.phone2 == null)
+            {
+                ModelState.AddModelError("", "phone2 required");
+            }
 
             IserviceProduct ps = new serviceProduct();
             Product p=ps.GetById(cmd.idprod);
@@ -78,6 +82,7 @@ namespace Stickers.Controllers
             }
             else
             {
+               
                
                 error = true;
                 return RedirectToAction("Details/" + cmd.idprod, "Products", new {error = error });

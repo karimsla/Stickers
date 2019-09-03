@@ -22,9 +22,9 @@ namespace Stickers.Controllers
    
     public class AdminController : Controller
     {
-        serviceProduct sp = new serviceProduct();
-        serviceCommand sc = new serviceCommand();
-        serviceClaim scc = new serviceClaim();
+        IserviceProduct sp = new serviceProduct();
+        IserviceCommand sc = new serviceCommand();
+        IserviceClaim scc = new serviceClaim();
         IserviceAdmin spa = new serviceAdmin();
         [CustomAuthorizeAttribute(Roles = "Admin,User")]
         [HttpGet]
@@ -101,7 +101,7 @@ namespace Stickers.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public ActionResult login(Admin ad, string ReturnUrl)
         {
            

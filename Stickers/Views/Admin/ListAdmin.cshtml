@@ -15,15 +15,11 @@
         <th>
             @Html.DisplayNameFor(model => model.username)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.password)
-        </th>
+     
         <th>
             @Html.DisplayNameFor(model => model.email)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.type)
-        </th>
+      
         <th></th>
     </tr>
 
@@ -32,15 +28,11 @@
     <td>
         @Html.DisplayFor(modelItem => item.username)
     </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.password)
-    </td>
+   
     <td>
         @Html.DisplayFor(modelItem => item.email)
     </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.type)
-    </td>
+   
     <td>
 
         @Html.ActionLink("Delete", "Delete", new { id = item.idAdmin }, new { @class = "btn cur-p btn-outline-danger" })

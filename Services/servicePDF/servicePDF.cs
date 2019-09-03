@@ -56,7 +56,7 @@ namespace Services
                 AddCellToBody(tableLayout, cmd.qteprod.ToString());
                 AddCellToBody(tableLayout, cmd.name.ToString());
                 AddCellToBody(tableLayout, cmd.phone.ToString());
-                AddCellToBody(tableLayout, cmd.phone2.ToString());
+                AddCellToBody(tableLayout, cmd.phone2!=null? cmd.phone2.ToString():"");
                 AddCellToBody(tableLayout, cmd.adresse);
                 AddCellToBody(tableLayout, cmd.gov);
                 AddCellToBody(tableLayout, cmd.code);
